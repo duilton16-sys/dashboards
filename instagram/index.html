@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Instagram Dashboard — @duiltonmendes</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Segoe UI', system-ui, sans-serif; background: #0f1117; color: #e4e6eb; padding: 24px; }
+  .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; flex-wrap: wrap; gap: 12px; }
+  .header h1 { font-size: 24px; background: linear-gradient(135deg, #f09433, #dc2743, #bc1888); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .header .meta { font-size: 13px; color: #8a8d93; }
+  .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 16px; margin-bottom: 24px; }
+  .kpi-card { background: #1a1d27; border: 1px solid #262a36; border-radius: 12px; padding: 20px; }
+  .kpi-card .label { font-size: 13px; color: #8a8d93; margin-bottom: 8px; }
+  .kpi-card .value { font-size: 32px; font-weight: 700; color: #fff; }
+  .kpi-card .sub { font-size: 12px; margin-top: 6px; }
+  .up { color: #4ade80; } .down { color: #f87171; }
+  .panel { background: #1a1d27; border: 1px solid #262a36; border-radius: 12px; padding: 20px; margin-bottom: 24px; }
+  .panel h2 { font-size: 16px; margin-bottom: 16px; }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 900px){ .grid-2{ grid-template-columns:1fr; } }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th, td { text-align: left; padding: 10px 8px; border-bottom: 1px solid #262a36; }
+  th { color: #8a8d93; font-weight: 600; }
+  td.num { text-align: right; font-variant-numeric: tabular-nums; }
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 6px; font-size: 11px; }
+  .video { background: #1e3a5f; color: #7dd3fc; } .carousel { background: #422006; color: #fbbf24; } .image { background: #3b0764; color: #d8b4fe; }
+  /* Calendar */
+  .cal-wrap { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+  .cal-month h3 { font-size: 14px; margin-bottom: 10px; color: #cbd5e1; text-transform: capitalize; }
+  .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; }
+  .cal-dow { font-size: 10px; color: #6b7280; text-align: center; padding-bottom: 4px; }
+  .cal-day { aspect-ratio: 1; border-radius: 6px; background: #1f2330; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 11px; color: #6b7280; position: relative; }
+  .cal-day.has-post { color: #fff; font-weight: 600; cursor: pointer; }
+  .cal-day .dot { font-size: 9px; margin-top: 2px; }
+  .lvl1 { background: #3b1d2a; } .lvl2 { background: #7a2138; } .lvl3 { background: #bc1888; } .lvl4 { background: #f09433; color:#1a1d27; }
+  .legend { display: flex; gap: 8px; align-items: center; font-size: 11px; color: #8a8d93; margin-top: 12px; }
+  .legend span { width: 14px; height: 14px; border-radius: 3px; display: inline-block; }
+  /* simple bar chart */
+  .bar-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; font-size: 13px; }
+  .bar-row .lbl { width: 80px; color: #cbd5e1; }
+  .bar-row .track { flex: 1; background: #1f2330; border-radius: 6px; height: 22px; overflow: hidden; }
+  .bar-row .fill { height: 100%; border-radius: 6px; display: flex; align-items: center; justify-content: flex-end; padding-right: 8px; font-size: 11px; color: #fff; }
+  .insight { background: #1a1d27; border-left: 4px solid #dc2743; border-radius: 8px; padding: 16px; margin-bottom: 12px; }
+  .insight.good { border-left-color: #4ade80; } .insight.warn { border-left-color: #fbbf24; }
+  .insight .t { font-weight: 600; margin-bottom: 4px; } .insight .d { font-size: 13px; color: #b0b3b8; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>📊 Instagram Dashboard — @duiltonmendes</h1>
+  <div class="meta">Atualizado: 01/06/2026 · Fonte: API Meta</div>
+</div>
+
+<div class="kpi-grid" id="kpis"></div>
+
+<div class="panel">
+  <h2>📅 Calendário de Posts</h2>
+  <div class="cal-wrap" id="calendar"></div>
+  <div class="legend">
+    Engajamento:
+    <span class="lvl1"></span> baixo
+    <span class="lvl2"></span>
+    <span class="lvl3"></span>
+    <span class="lvl4"></span> alto
+    &nbsp;·&nbsp; passe o mouse sobre o dia para ver curtidas
+  </div>
+</div>
+
+<div class="grid-2">
+  <div class="panel">
+    <h2>🎬 Média de curtidas por formato</h2>
+    <div id="formatBars"></div>
+  </div>
+  <div class="panel">
+    <h2>🏆 Top 8 Posts</h2>
+    <table id="topTable"><thead><tr><th>Data</th><th>Tipo</th><th class="num">❤️</th><th class="num">💬</th><th>Conteúdo</th></tr></thead><tbody></tbody></table>
+  </div>
+</div>
+
+<div class="panel">
+  <h2>🔍 Insights</h2>
+  <div class="insight warn"><div class="t">⚠️ Queda de engajamento</div><div class="d">Posts de set-out/2025 tinham 40-80 curtidas. Os de maio/2026 caíram para ~10. O alcance orgânico despencou — provável queda de retenção dos Reels.</div></div>
+  <div class="insight good"><div class="t">✅ Conteúdo pessoal/viagem domina</div><div class="d">Os maiores carrosséis são viagens (Rio 116, Punta Cana 80, Santos 49). Engajam 3-5x mais que posts de venda pura.</div></div>
+  <div class="insight"><div class="t">🎯 Comentários = ouro perdido</div><div class="d">O post das "multas" teve 23 comentários por ser leve. O viral de 317 curtidas teve 0. CTAs precisam pedir resposta específica.</div></div>
+</div>
+
+<div class="panel">
+  <h2>🎯 Plano de Ação</h2>
+  <table>
+    <thead><tr><th>Prioridade</th><th>Ação</th><th>Por quê</th></tr></thead>
+    <tbody>
+      <tr><td><span class="badge" style="background:#7f1d1d;color:#fca5a5">ALTA</span></td><td>Investigar queda de Reels</td><td>Caiu de ~40 para ~10 curtidas; checar retenção</td></tr>
+      <tr><td><span class="badge" style="background:#7f1d1d;color:#fca5a5">ALTA</span></td><td>Eliminar legendas "Siga @duiltonmendes"</td><td>Não geram valor nem conversa</td></tr>
+      <tr><td><span class="badge" style="background:#7f1d1d;color:#fca5a5">ALTA</span></td><td>Responder todos os comentários</td><td>Aumenta alcance orgânico</td></tr>
+      <tr><td><span class="badge" style="background:#78350f;color:#fcd34d">MÉDIA</span></td><td>Misturar pessoal + negócio</td><td>Viagens têm 3-5x mais engajamento</td></tr>
+      <tr><td><span class="badge" style="background:#78350f;color:#fcd34d">MÉDIA</span></td><td>Criar série com dia fixo</td><td>Previsibilidade cria audiência fiel</td></tr>
+      <tr><td><span class="badge" style="background:#78350f;color:#fcd34d">MÉDIA</span></td><td>Investir mais em carrossel</td><td>Só 10% dos posts, alto desempenho</td></tr>
+      <tr><td><span class="badge" style="background:#14532d;color:#86efac">BAIXA</span></td><td>Fixar post de 317 curtidas</td><td>Maior prova social</td></tr>
+      <tr><td><span class="badge" style="background:#14532d;color:#86efac">BAIXA</span></td><td>Testar variações de bio/CTA</td><td>Otimizar cliques no link</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<script>
+const profile = { followers: 4788, following: 2772, totalPosts: 370 };
+const posts = [
+{"date":"2026-05-29","type":"VIDEO","likes":10,"comments":0,"caption":"Quem joga vê a peça. Quem observa vê o tabuleiro."},
+{"date":"2026-05-26","type":"VIDEO","likes":11,"comments":0,"caption":"Você vende característica ou benefício?"},
+{"date":"2026-05-26","type":"VIDEO","likes":10,"comments":0,"caption":"Se você não tá errando, não tá fazendo nada de novo."},
+{"date":"2026-05-22","type":"VIDEO","likes":10,"comments":2,"caption":"Siga @duiltonmendes"},
+{"date":"2026-05-21","type":"VIDEO","likes":9,"comments":0,"caption":"Siga @duiltonmendes"},
+{"date":"2026-05-21","type":"VIDEO","likes":10,"comments":0,"caption":"Li a biografia do Elon Musk..."},
+{"date":"2026-05-20","type":"VIDEO","likes":11,"comments":2,"caption":"2 anos desenvolvendo. Zero testadores."},
+{"date":"2026-05-19","type":"VIDEO","likes":10,"comments":0,"caption":"Toda reunião é a mesma coisa."},
+{"date":"2026-05-18","type":"VIDEO","likes":0,"comments":0,"caption":"O lead chegou. Você que não atendeu."},
+{"date":"2026-05-18","type":"VIDEO","likes":12,"comments":0,"caption":"Trabalhar muito não é trabalhar certo."},
+{"date":"2026-05-17","type":"CAROUSEL_ALBUM","likes":49,"comments":2,"caption":"📍Santos - Museu do Café"},
+{"date":"2026-05-15","type":"VIDEO","likes":14,"comments":2,"caption":"Te venderam a ideia de que trabalhar menos é inteligente."},
+{"date":"2026-05-15","type":"VIDEO","likes":2,"comments":0,"caption":"Ninguém se importa com a sua empresa mais que você."},
+{"date":"2026-05-14","type":"VIDEO","likes":12,"comments":0,"caption":"Networking é perda de tempo se não tem resultado."},
+{"date":"2026-05-13","type":"VIDEO","likes":13,"comments":3,"caption":"O óbvio precisa ser dito."},
+{"date":"2026-05-08","type":"VIDEO","likes":12,"comments":2,"caption":"Comente IA pra colocar IA no comercial"},
+{"date":"2026-05-08","type":"VIDEO","likes":6,"comments":0,"caption":"Reunião com um amigo. Só gerei valor."},
+{"date":"2026-05-07","type":"VIDEO","likes":5,"comments":0,"caption":"Não tenho tempo pra gravar."},
+{"date":"2026-05-07","type":"VIDEO","likes":19,"comments":3,"caption":"Reunião com ecossistema de bartenders."},
+{"date":"2026-05-06","type":"VIDEO","likes":27,"comments":4,"caption":"Dever é coisa de irresponsável?"},
+{"date":"2026-05-06","type":"VIDEO","likes":36,"comments":0,"caption":"Toda empresa vai precisar de estúdio."},
+{"date":"2026-05-05","type":"VIDEO","likes":12,"comments":1,"caption":"Quanto dinheiro você deixa na mesa?"},
+{"date":"2026-05-02","type":"CAROUSEL_ALBUM","likes":116,"comments":2,"caption":"📍Rio de Janeiro é muito bonito"},
+{"date":"2026-04-29","type":"VIDEO","likes":21,"comments":6,"caption":"Mandou seu time pra guerra sem arma."},
+{"date":"2026-04-28","type":"VIDEO","likes":25,"comments":4,"caption":"Quem não aparecer vai desaparecer."},
+{"date":"2026-04-25","type":"VIDEO","likes":20,"comments":2,"caption":"Aumente sua capacidade de energia"},
+{"date":"2026-04-25","type":"VIDEO","likes":15,"comments":0,"caption":"Sigam o @fisiotrainingsp"},
+{"date":"2026-04-24","type":"VIDEO","likes":16,"comments":1,"caption":"A concorrência vem forte."},
+{"date":"2026-04-23","type":"VIDEO","likes":24,"comments":2,"caption":"Acreditar toda diferença!"},
+{"date":"2026-04-20","type":"VIDEO","likes":39,"comments":2,"caption":"Alinha expectativa com esforço."},
+{"date":"2026-04-18","type":"VIDEO","likes":120,"comments":23,"caption":"As multas começou ficar pesadas 😅😂"},
+{"date":"2026-04-17","type":"VIDEO","likes":12,"comments":0,"caption":"(sem legenda)"},
+{"date":"2026-04-17","type":"VIDEO","likes":26,"comments":0,"caption":"Não precisa só de conteúdo pra vender."},
+{"date":"2026-04-17","type":"VIDEO","likes":27,"comments":2,"caption":"Movimento altera faturamento."},
+{"date":"2026-03-29","type":"CAROUSEL_ALBUM","likes":80,"comments":1,"caption":"📍Punta Cana - República Dominicana 🇩🇴"},
+{"date":"2025-11-03","type":"VIDEO","likes":35,"comments":0,"caption":"Toda segunda as 10h"},
+{"date":"2025-10-14","type":"VIDEO","likes":317,"comments":0,"caption":"O segredo do sucesso é sua habilidade de vendas"},
+{"date":"2025-10-09","type":"VIDEO","likes":24,"comments":4,"caption":"Cansado da sua equipe agindo assim?"},
+{"date":"2025-10-09","type":"IMAGE","likes":10,"comments":0,"caption":"Como funciona na maioria dos casos"},
+{"date":"2025-10-06","type":"VIDEO","likes":29,"comments":0,"caption":"O Growth vai além das tarefas simples."},
+{"date":"2025-10-02","type":"VIDEO","likes":45,"comments":1,"caption":"Dia frenético em Campinas"},
+{"date":"2025-09-30","type":"VIDEO","likes":74,"comments":1,"caption":"Fechamento de mês na matriz da @v4company"},
+{"date":"2025-09-30","type":"VIDEO","likes":13,"comments":2,"caption":"Comenta 444 pra receber a aula"},
+{"date":"2025-09-28","type":"CAROUSEL_ALBUM","likes":65,"comments":1,"caption":"Caber um ano em uma semana"},
+{"date":"2025-09-26","type":"VIDEO","likes":54,"comments":0,"caption":"Marca aqui nos comentários"},
+{"date":"2025-09-24","type":"CAROUSEL_ALBUM","likes":6,"comments":2,"caption":"Comenta 555 pelo treinamento"},
+{"date":"2025-09-24","type":"VIDEO","likes":15,"comments":0,"caption":"A mentalidade que difere homens de meninos"},
+{"date":"2025-09-22","type":"VIDEO","likes":18,"comments":0,"caption":"Comenta COMERCIAL e eu te ensino"},
+{"date":"2025-09-19","type":"VIDEO","likes":82,"comments":3,"caption":"Compram pela emoção, justificam pela razão!"},
+{"date":"2025-09-18","type":"IMAGE","likes":19,"comments":8,"caption":"A chave pra aumentar faturamento"}
+];
+const fLabels = { VIDEO:'Vídeo', CAROUSEL_ALBUM:'Carrossel', IMAGE:'Imagem' };
+const badgeClass = { VIDEO:'video', CAROUSEL_ALBUM:'carousel', IMAGE:'image' };
+
+// ---- KPIs (calculados dos dados) ----
+const totalLikes = posts.reduce((s,p)=>s+p.likes,0);
+const totalComments = posts.reduce((s,p)=>s+p.comments,0);
+const avgLikes = (totalLikes/posts.length).toFixed(1);
+const avgComments = (totalComments/posts.length).toFixed(1);
+const engRate = ((avgLikes/profile.followers)*100).toFixed(2);
+document.getElementById('kpis').innerHTML = `
+  <div class="kpi-card"><div class="label">Seguidores</div><div class="value">${profile.followers.toLocaleString('pt-BR')}</div><div class="sub" style="color:#8a8d93">${profile.following.toLocaleString('pt-BR')} seguindo</div></div>
+  <div class="kpi-card"><div class="label">Total de Posts</div><div class="value">${profile.totalPosts}</div></div>
+  <div class="kpi-card"><div class="label">Média curtidas/post</div><div class="value">${avgLikes}</div><div class="sub down">▼ caindo nos últimos meses</div></div>
+  <div class="kpi-card"><div class="label">Taxa de Engajamento</div><div class="value">${engRate}%</div><div class="sub down">Ideal: 1-3%</div></div>
+  <div class="kpi-card"><div class="label">Comentários/post</div><div class="value">${avgComments}</div></div>
+`;
+
+// ---- Calendário ----
+const maxLikes = Math.max(...posts.map(p=>p.likes));
+function level(likes){ const r=likes/maxLikes; if(r>0.5)return 'lvl4'; if(r>0.25)return 'lvl3'; if(r>0.1)return 'lvl2'; return 'lvl1'; }
+const postsByDay = {};
+posts.forEach(p=>{ (postsByDay[p.date]=postsByDay[p.date]||[]).push(p); });
+const months = [...new Set(posts.map(p=>p.date.slice(0,7)))].sort();
+const monthNames = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
+const dow = ['D','S','T','Q','Q','S','S'];
+let calHTML = '';
+months.forEach(m=>{
+  const [y,mo] = m.split('-').map(Number);
+  const first = new Date(y, mo-1, 1).getDay();
+  const days = new Date(y, mo, 0).getDate();
+  let cells = dow.map(d=>`<div class="cal-dow">${d}</div>`).join('');
+  for(let i=0;i<first;i++) cells += `<div></div>`;
+  for(let d=1;d<=days;d++){
+    const ds = `${y}-${String(mo).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+    const dayPosts = postsByDay[ds];
+    if(dayPosts){
+      const dl = dayPosts.reduce((s,p)=>s+p.likes,0);
+      const title = dayPosts.map(p=>`${p.likes}❤ ${p.comments}💬 — ${p.caption}`).join('\n');
+      cells += `<div class="cal-day has-post ${level(dl)}" title="${title.replace(/"/g,'')}">${d}<span class="dot">${dayPosts.length>1?dayPosts.length+'×':'●'}</span></div>`;
+    } else {
+      cells += `<div class="cal-day">${d}</div>`;
+    }
+  }
+  calHTML += `<div class="cal-month"><h3>${monthNames[mo-1]} ${y}</h3><div class="cal-grid">${cells}</div></div>`;
+});
+document.getElementById('calendar').innerHTML = calHTML;
+
+// ---- Barras por formato ----
+const fmt = {};
+posts.forEach(p=>{ const f=fmt[p.type]=fmt[p.type]||{t:0,c:0}; f.t+=p.likes; f.c++; });
+const fmtArr = Object.entries(fmt).map(([k,v])=>({k, avg: Math.round(v.t/v.c), count:v.c})).sort((a,b)=>b.avg-a.avg);
+const maxAvg = Math.max(...fmtArr.map(f=>f.avg));
+const colors = { VIDEO:'#3b82f6', CAROUSEL_ALBUM:'#fbbf24', IMAGE:'#a855f7' };
+document.getElementById('formatBars').innerHTML = fmtArr.map(f=>`
+  <div class="bar-row"><div class="lbl">${fLabels[f.k]}</div>
+  <div class="track"><div class="fill" style="width:${(f.avg/maxAvg*100)}%;background:${colors[f.k]}">${f.avg}</div></div></div>
+`).join('') + `<div style="font-size:11px;color:#8a8d93;margin-top:8px">Média de curtidas · ${fmtArr.map(f=>fLabels[f.k]+': '+f.count+' posts').join(' · ')}</div>`;
+
+// ---- Top table ----
+const top = [...posts].sort((a,b)=>b.likes-a.likes).slice(0,8);
+document.querySelector('#topTable tbody').innerHTML = top.map(p=>`
+  <tr><td>${p.date.split('-').reverse().join('/')}</td><td><span class="badge ${badgeClass[p.type]}">${fLabels[p.type]}</span></td>
+  <td class="num">${p.likes}</td><td class="num">${p.comments}</td><td>${p.caption.slice(0,40)}</td></tr>
+`).join('');
+</script>
+</body>
+</html>
