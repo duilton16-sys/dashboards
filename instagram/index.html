@@ -121,27 +121,18 @@ th{color:#65676b;font-weight:600;font-size:12px;text-transform:uppercase;letter-
     Meta Business Suite
   </div>
   <div class="nav-right">
-    <button class="btn btn-outline">&#9900; Criar anuncio</button>
-    <button class="btn btn-primary">+ Criar post</button>
-    <button class="btn btn-outline">&#10003; Tarefas</button>
+    <span style="font-size:13px;color:#65676b">@duiltonmendes &nbsp;&middot;&nbsp; Atualizado: 01/06/2026</span>
   </div>
 </div>
 
 <div class="layout">
   <!-- SIDEBAR -->
   <div class="sidebar">
-    <div class="sidebar-item"><span class="icon">&#127968;</span> Pagina inicial</div>
-    <div class="sidebar-item"><span class="icon">&#128203;</span> Feed</div>
-    <div class="sidebar-item active"><span class="icon">&#128197;</span> Planner</div>
-    <div class="sidebar-item"><span class="icon">&#128240;</span> Publicacoes</div>
-    <div class="sidebar-divider"></div>
-    <div class="sidebar-section">Engajamento</div>
-    <div class="sidebar-item"><span class="icon">&#128172;</span> Caixa de entrada</div>
-    <div class="sidebar-item"><span class="icon">&#128264;</span> Comentarios</div>
-    <div class="sidebar-divider"></div>
-    <div class="sidebar-section">Analise</div>
-    <div class="sidebar-item"><span class="icon">&#128200;</span> Insights</div>
-    <div class="sidebar-item"><span class="icon">&#128202;</span> Dashboard</div>
+    <div class="sidebar-section">Visualizacoes</div>
+    <div class="sidebar-item active" onclick="setTab('calendar')"><span class="icon">&#128197;</span> Calendario</div>
+    <div class="sidebar-item" onclick="setTab('insights')"><span class="icon">&#128200;</span> Insights</div>
+    <div class="sidebar-item" onclick="setTab('top')"><span class="icon">&#127942;</span> Top Posts</div>
+    <div class="sidebar-item" onclick="setTab('actions')"><span class="icon">&#127919;</span> Plano de Acao</div>
   </div>
 
   <!-- MAIN -->
@@ -174,10 +165,7 @@ th{color:#65676b;font-weight:600;font-size:12px;text-transform:uppercase;letter-
           <button onclick="nextMonth()">&#8250;</button>
         </div>
       </div>
-      <div class="filter-bar">
-        <div class="filter-btn">&#9673; Tipo de conteudo: Tudo</div>
-        <div class="filter-btn">&#128100; Compartilhado com: Todos</div>
-      </div>
+      <div></div>
     </div>
 
     <!-- VIEW TABS -->
@@ -333,6 +321,8 @@ function setTab(tab){
   var vtabs = document.querySelectorAll('.vtab');
   var map = {calendar:0,insights:1,top:2,actions:3};
   for(var i=0;i<vtabs.length;i++) vtabs[i].className = 'vtab' + (i===map[tab]?' active':'');
+  var sitems = document.querySelectorAll('.sidebar-item');
+  for(var i=0;i<sitems.length;i++) sitems[i].className = 'sidebar-item' + (i===map[tab]?' active':'');
   if(tab==='insights') buildInsights();
   if(tab==='top') buildTop();
 }
