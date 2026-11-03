@@ -1,0 +1,4 @@
+# Use sempre as versões mais novas (pip install -U -r requirements.txt):
+# o YouTube muda com frequência e versões antigas param de funcionar.
+yt-dlp
+youtube-transcript-api>=1.2,<2
