@@ -10,7 +10,7 @@ Agente de mentoria sobre mentalidade, confiança, crenças, dinheiro e vendas, m
 |---|---|
 | [`.claude/agents/mentor-marczell.md`](../../.claude/agents/mentor-marczell.md) | O agente: instruções, modos de trabalho e regras de segurança |
 | [`base-de-conhecimento.md`](base-de-conhecimento.md) | As ideias do canal organizadas em princípios, com as fontes |
-| [`coletar_transcricoes.py`](coletar_transcricoes.py) | Baixa as legendas dos vídeos do canal para deixar o agente mais completo |
+| [`coletar_transcricoes.py`](coletar_transcricoes.py) | Baixa as transcrições dos vídeos (pelo YouTube direto ou pela API da Supadata) para deixar o agente mais completo |
 | `transcricoes/` | Criada pelo coletor: uma transcrição por vídeo, mais o `INDICE.md` |
 
 ## O que ele faz
@@ -42,18 +42,29 @@ Abra uma sessão no repositório `dashboards` e peça, por exemplo:
 
 A base de hoje vem de títulos, descrições, entrevistas e reportagens. Os vídeos ainda não foram transcritos, porque o YouTube estava bloqueado na sessão em que o agente foi criado. Com as transcrições, o agente passa a citar o que o Marczell disse de fato, com o minuto do vídeo.
 
-**Opção 1: pedir para o Claude.** Libere `youtube.com` e `www.youtube.com` no acesso à rede do ambiente (menu do ambiente na barra de título da sessão → Editar → Acesso à rede → Domínios permitidos). O passo a passo está em https://code.claude.com/docs/en/cloud-environments#network-access. Depois, peça: "rode o coletor de transcrições do mentor-marczell e atualize a base". O YouTube às vezes bloqueia servidores na nuvem; se isso acontecer, use a opção 2.
+O coletor começa pelos 24 vídeos do YouTube citados na base, inclusive as entrevistas em canais de outras pessoas. Depois passa para os vídeos do canal, nesta ordem: vídeos, lives e shorts. Ele funciona por dois caminhos:
 
-**Opção 2: no seu computador** (precisa de Python 3.11 ou mais novo):
+| Caminho | Custo | O que você configura uma vez |
+|---|---|---|
+| **YouTube direto** | Grátis | Liberar `www.youtube.com` e `youtube.com` no acesso à rede do ambiente |
+| **API da Supadata** | 100 créditos grátis por mês, 1 crédito por vídeo com legenda. Buscar o título dos vídeos do canal também pode gastar créditos. | Criar uma conta em https://supadata.ai, cadastrar a chave no ambiente com o nome `SUPADATA_API_KEY` e liberar `api.supadata.ai` no acesso à rede |
+
+As duas configurações ficam no menu do ambiente, na barra de título da sessão → Editar. O passo a passo está em https://code.claude.com/docs/en/cloud-environments#network-access. A chave vai em **Network secrets** ou como variável de ambiente; nunca cole a chave no chat. Quando a chave existe, o coletor usa a Supadata sozinho.
+
+Depois de configurar, abra uma sessão nova e peça: "rode o coletor de transcrições do mentor-marczell e atualize a base".
+
+Com a Supadata, se os créditos acabarem, o coletor para e guarda o que já baixou; no mês seguinte, ele continua de onde parou. Para vídeos sem legenda, a opção `--gerar-com-ia` pede para a Supadata transcrever o áudio, mas isso gasta 2 créditos por minuto de vídeo.
+
+O YouTube às vezes bloqueia servidores na nuvem. Se isso acontecer no caminho direto, use a Supadata ou rode o coletor no seu computador (precisa de Python 3.11 ou mais novo):
 
 ```bash
 cd agentes/mentor-marczell
 pip install -U -r requirements.txt
-python coletar_transcricoes.py              # canal inteiro
-python coletar_transcricoes.py --limite 30  # só os 30 mais recentes de cada aba
+python coletar_transcricoes.py              # tudo
+python coletar_transcricoes.py --limite 30  # só os 30 mais recentes de cada aba do canal
 ```
 
-Depois, faça commit da pasta `transcricoes/`. Quando você rodar de novo, ele baixa só os vídeos novos.
+Depois, faça commit da pasta `transcricoes/`. Quando você rodar de novo, ele baixa só o que ainda falta.
 
 ## Limites
 

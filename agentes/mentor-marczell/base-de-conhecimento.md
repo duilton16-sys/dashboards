@@ -149,21 +149,21 @@ Títulos originais encontrados por busca. A maior parte parece ser do próprio c
 
 ### Entrevistas e participações
 
-| Programa | Título e temas | Link |
-|---|---|---|
-| Dream Out Loud, ep. 337 (20/05/2025) | The Man Who Charges $1M For Hypnosis: You Can Literally Get ANYTHING You Want Using Hypnosis! Traz a frase sobre conforto e confiança. | https://www.youtube.com/watch?v=SO6rPc7SFVw |
-| Mission Matters, com Adam Torres (jul/2025, gravado no Monetized Talks, em Beverly Hills) | Marczell Klein on Rapid Mindset Reprogramming and the Power of Belief. "Mindset's everything", reprogramação para alinhar as metas, como entrou na hipnose. Tem transcrição completa. | https://missionmatters.com/marczell-klein-on-rapid-mindset-reprogramming-and-the-power-of-belief (vídeo: https://www.youtube.com/watch?v=tOXTiqBqs0c) |
-| Digital Social Hour #745, com Sean Kelly (22/09/2024) | The Untold Secret to Becoming a Billionaire Fast. Confiança pelas vitórias, vencer medos em 30 segundos, o dono como teto da empresa, hipnose e inteligência emocional. Tem transcrição. | https://podscripts.co/podcasts/digital-social-hour/the-untold-secret-to-becoming-a-billionaire-fast-marczell-klein-dsh-745 |
-| Everything is Influence (17/11/2022) | How to grow in confidence with hypnotist Marczell Klein. Hipnose como influência, o que é transe, confiança na vida e nos negócios, falar em palco, autoestima. | https://podcasts.apple.com/us/podcast/how-to-grow-in-confidence-with-hypnotist-marczell-klein/id1616410029?i=1000586540815 |
-| Sauna Sessions | The Power of Hypnosis with Marczell Klein. Como entrou na hipnose e como encontrou a própria confiança. | https://www.youtube.com/watch?v=oIhGS1vO1mI |
-| SPOHNTRAINED (set/2019) | The King of Confidence. Medo, insegurança, ansiedade e como ficar confortável no desconforto. | https://podtail.com/en/podcast/-spohntrained-personal-development-podcast/the-king-of-confidence-marczell-klein/ |
-| Max Tornow Podcast #283 | Marczell Klein's Formula: A Hypnosis Masterclass To Unspeakable Wealth | https://open.spotify.com/episode/5d4qPNaCjGCdt8AIyRtxrQ |
-| Sell + Scale Summit (20/09/2022, Las Vegas) | How to Reprogram your Subconscious Mind for Success. Mentalidade e habilidade como motores de vendas. | https://amzsummits.com/sessions/how-to-reprogram-your-subconscious-mind-for-success-by-marczell-klein/ |
-| Corte | People Tell Me Hypnosis Is Bullsh#t With Marczell Klein. Identidade, não hábito. | https://www.youtube.com/watch?v=9-baKWaeeM8 |
-| Participação | Marczell Klein - BEST HYPNOTIST IN THE WORLD? | https://www.youtube.com/watch?v=vRFU9V3GaQs |
-| Participação | Hypnosis with Marczell Klein | https://www.youtube.com/watch?v=yagj6XDaDPM |
-| Palestra | Guest Speaker Marczell Klein Shares Insight On His Style of RAPID Hypnosis | https://www.youtube.com/watch?v=vo6ah5GUrnY |
-| Participação | Is Hypnosis Real? You Won't Believe How It Works (ft. Marczell Klein) | https://www.youtube.com/watch?v=XV61-t9IPio |
+| Programa | Título | Temas | Link |
+|---|---|---|---|
+| Dream Out Loud, ep. 337 (20/05/2025) | The Man Who Charges $1M For Hypnosis: You Can Literally Get ANYTHING You Want Using Hypnosis! | A frase sobre conforto e confiança | https://www.youtube.com/watch?v=SO6rPc7SFVw |
+| Mission Matters, com Adam Torres (jul/2025, gravado no Monetized Talks, em Beverly Hills) | Marczell Klein on Rapid Mindset Reprogramming and the Power of Belief | "Mindset's everything", reprogramação para alinhar as metas, como entrou na hipnose. Tem transcrição completa. | https://missionmatters.com/marczell-klein-on-rapid-mindset-reprogramming-and-the-power-of-belief (vídeo: https://www.youtube.com/watch?v=tOXTiqBqs0c) |
+| Digital Social Hour #745, com Sean Kelly (22/09/2024) | The Untold Secret to Becoming a Billionaire Fast | Confiança pelas vitórias, vencer medos em 30 segundos, o dono como teto da empresa, hipnose e inteligência emocional. Tem transcrição. | https://podscripts.co/podcasts/digital-social-hour/the-untold-secret-to-becoming-a-billionaire-fast-marczell-klein-dsh-745 |
+| Everything is Influence (17/11/2022) | How to grow in confidence with hypnotist Marczell Klein | Hipnose como influência, o que é transe, confiança na vida e nos negócios, falar em palco, autoestima | https://podcasts.apple.com/us/podcast/how-to-grow-in-confidence-with-hypnotist-marczell-klein/id1616410029?i=1000586540815 |
+| Sauna Sessions | The Power of Hypnosis with Marczell Klein | Como entrou na hipnose e como encontrou a própria confiança | https://www.youtube.com/watch?v=oIhGS1vO1mI |
+| SPOHNTRAINED (set/2019) | The King of Confidence | Medo, insegurança, ansiedade e como ficar confortável no desconforto | https://podtail.com/en/podcast/-spohntrained-personal-development-podcast/the-king-of-confidence-marczell-klein/ |
+| Max Tornow Podcast #283 | Marczell Klein's Formula: A Hypnosis Masterclass To Unspeakable Wealth | Hipnose e riqueza | https://open.spotify.com/episode/5d4qPNaCjGCdt8AIyRtxrQ |
+| Sell + Scale Summit (20/09/2022, Las Vegas) | How to Reprogram your Subconscious Mind for Success | Mentalidade e habilidade como motores de vendas | https://amzsummits.com/sessions/how-to-reprogram-your-subconscious-mind-for-success-by-marczell-klein/ |
+| Corte | People Tell Me Hypnosis Is Bullsh#t With Marczell Klein | Identidade, não hábito | https://www.youtube.com/watch?v=9-baKWaeeM8 |
+| Participação | Marczell Klein - BEST HYPNOTIST IN THE WORLD? | Entrevista | https://www.youtube.com/watch?v=vRFU9V3GaQs |
+| Participação | Hypnosis with Marczell Klein | Entrevista | https://www.youtube.com/watch?v=yagj6XDaDPM |
+| Palestra | Guest Speaker Marczell Klein Shares Insight On His Style of RAPID Hypnosis | O estilo "RAPID" de hipnose | https://www.youtube.com/watch?v=vo6ah5GUrnY |
+| Participação | Is Hypnosis Real? You Won't Believe How It Works (ft. Marczell Klein) | Como a hipnose funciona | https://www.youtube.com/watch?v=XV61-t9IPio |
 
 ### Perfis e páginas
 

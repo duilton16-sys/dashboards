@@ -2,3 +2,4 @@
 # o YouTube muda com frequência e versões antigas param de funcionar.
 yt-dlp
 youtube-transcript-api>=1.2,<2
+requests
