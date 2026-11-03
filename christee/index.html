@@ -1,0 +1,1782 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Christee Jeans - Performance</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  color-scheme:light;
+  --page:#f9f9f7;--surface:#fcfcfb;--ink:#0b0b0b;--ink-2:#52514e;--muted:#898781;
+  --grid:#e1e0d9;--axis:#c3c2b7;--border:rgba(11,11,11,.10);
+  --s1:#2a78d6;--s2:#eb6834;--ctx:#898781;
+  --track:#cde2fb;--wash:rgba(42,120,214,.08);
+  --seg-past:#c3c2b7;--seg-past-ink:#0b0b0b;--seg-now:#2a78d6;--seg-now-ink:#ffffff;--seg-next:#86b6ef;--seg-next-ink:#0b0b0b;
+  --good:#0ca30c;--warn:#fab219;--crit:#d03b3b;
+  --pos-text:#006300;--neg-text:#d03b3b;
+  --shadow:0 6px 24px rgba(11,11,11,.12);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --page:#0d0d0d;--surface:#1a1a19;--ink:#f0efec;--ink-2:#c3c2b7;--muted:#898781;
+    --grid:#2c2c2a;--axis:#383835;--border:rgba(255,255,255,.10);
+    --s1:#3987e5;--s2:#d95926;--ctx:#898781;
+    --track:#104281;--wash:rgba(57,135,229,.13);
+    --seg-past:#383835;--seg-past-ink:#f0efec;--seg-now:#3987e5;--seg-now-ink:#ffffff;--seg-next:#1c5cab;--seg-next-ink:#ffffff;
+    --pos-text:#0ca30c;--neg-text:#e66767;
+    --shadow:0 6px 24px rgba(0,0,0,.55);
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --page:#0d0d0d;--surface:#1a1a19;--ink:#f0efec;--ink-2:#c3c2b7;--muted:#898781;
+  --grid:#2c2c2a;--axis:#383835;--border:rgba(255,255,255,.10);
+  --s1:#3987e5;--s2:#d95926;--ctx:#898781;
+  --track:#104281;--wash:rgba(57,135,229,.13);
+  --seg-past:#383835;--seg-past-ink:#f0efec;--seg-now:#3987e5;--seg-now-ink:#ffffff;--seg-next:#1c5cab;--seg-next-ink:#ffffff;
+  --pos-text:#0ca30c;--neg-text:#e66767;
+  --shadow:0 6px 24px rgba(0,0,0,.55);
+}
+html{-webkit-text-size-adjust:100%}
+body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;font-size:14px;line-height:1.5;background:var(--page);color:var(--ink);min-height:100vh}
+.wrap{max-width:1180px;margin:0 auto;padding:0 16px}
+
+/* Cabeçalho */
+.top{padding-top:18px;padding-bottom:12px}
+.back{display:inline-block;font-size:13px;color:var(--ink-2);text-decoration:none;margin-bottom:8px}
+.back:hover{color:var(--ink);text-decoration:underline}
+.title-row{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:8px 24px}
+h1{font-size:26px;line-height:1.2;font-weight:700;letter-spacing:-.01em}
+.sub{color:var(--ink-2);font-size:14px;margin-top:2px}
+.stamp{display:flex;flex-direction:column;align-items:flex-end;font-size:12.5px;color:var(--ink-2)}
+@media(max-width:640px){.stamp{align-items:flex-start}}
+
+/* Abas */
+.tabs-bar{position:sticky;top:0;z-index:30;background:var(--page);border-bottom:1px solid var(--border)}
+.tabs{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.tabs::-webkit-scrollbar{display:none}
+.tab{-webkit-appearance:none;appearance:none;background:none;border:0;border-bottom:2px solid transparent;padding:12px 12px 10px;font:inherit;font-size:14px;font-weight:600;color:var(--ink-2);cursor:pointer;white-space:nowrap}
+.tab:hover{color:var(--ink)}
+.tab[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--s1)}
+.tab:focus-visible{outline:2px solid var(--s1);outline-offset:-3px;border-radius:6px}
+
+/* Layout */
+main{padding-top:18px;padding-bottom:48px}
+.panel[hidden]{display:none}
+.lede{color:var(--ink-2);font-size:13.5px;margin-bottom:14px;max-width:860px}
+.grid{display:grid;gap:16px;margin-bottom:16px}
+.g2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.g3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.hero-row{grid-template-columns:minmax(0,5fr) minmax(0,7fr)}
+@media(max-width:900px){.g2,.g3,.hero-row{grid-template-columns:minmax(0,1fr)}}
+.span2{grid-column:1/-1}
+.card,.fig{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:18px;min-width:0}
+.fig{margin:0}
+.card + .card{margin-top:0}
+.stack > * + *{margin-top:16px}
+h2{font-size:15px;line-height:1.35;font-weight:650}
+.desc{font-size:12.5px;color:var(--ink-2);margin-top:2px}
+.section-title{font-size:14px;font-weight:650;margin:22px 0 10px}
+.section-title span{font-weight:400;color:var(--ink-2)}
+p + p{margin-top:8px}
+
+/* Destaque */
+.eyebrow{font-size:12.5px;color:var(--ink-2);font-weight:600}
+.hero-value{font-size:52px;line-height:1.05;font-weight:700;letter-spacing:-.02em;margin:8px 0 6px}
+.hero-sub{font-size:14px;color:var(--ink-2);margin-bottom:14px}
+.meter{height:8px;border-radius:4px;background:var(--track);overflow:hidden}
+.meter>span{display:block;height:100%;border-radius:4px;background:var(--s1)}
+.meter-scale{display:flex;justify-content:space-between;font-size:11.5px;color:var(--muted);margin-top:4px}
+.hero-note{font-size:13px;color:var(--ink-2);margin-top:14px}
+.bullets{list-style:none;margin-top:8px}
+.bullets li{position:relative;padding-left:16px;margin:7px 0;font-size:13.5px}
+.bullets li:before{content:"";position:absolute;left:3px;top:.62em;width:5px;height:5px;border-radius:50%;background:var(--muted)}
+.callout{margin-top:12px;padding:10px 12px;border-radius:8px;background:var(--wash);font-size:13.5px}
+
+/* Indicadores */
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:16px}
+.kpis.k3{grid-template-columns:repeat(3,minmax(0,1fr))}
+@media(max-width:900px){.kpis,.kpis.k3{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:520px){.kpis.k3{grid-template-columns:minmax(0,1fr)}}
+.tile{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:14px 14px 10px;min-width:0}
+.t-label{font-size:12.5px;color:var(--ink-2)}
+.t-value{font-size:24px;font-weight:650;line-height:1.25;margin-top:2px;white-space:nowrap;overflow-wrap:normal}
+.t-value.small{font-size:19px;white-space:normal}
+.t-delta{font-size:12.5px;margin-top:2px}
+.t-delta .vs{color:var(--muted)}
+.t-sub{font-size:12.5px;color:var(--ink-2);margin-top:2px}
+.t-spark{height:34px;margin-top:8px}
+.pos{color:var(--pos-text)}.neg{color:var(--neg-text)}.neu{color:var(--ink-2)}
+
+/* Tabelas */
+.table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin-top:10px}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th,td{padding:8px 10px;text-align:left;border-bottom:1px solid var(--grid);vertical-align:top}
+thead th{font-size:12px;font-weight:600;color:var(--ink-2);border-bottom-color:var(--axis);white-space:nowrap;vertical-align:bottom}
+tbody th{font-weight:400}
+.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+tr.total th,tr.total td{font-weight:650;border-top:1px solid var(--axis)}
+tr.past th,tr.past td{color:var(--muted)}
+tr.is-today th,tr.is-today td{background:var(--wash)}
+.st{display:inline-flex;align-items:center;gap:6px;white-space:nowrap;font-size:12.5px}
+.st i{font-style:normal;display:inline-block;width:16px;height:16px;line-height:16px;text-align:center;border-radius:50%;font-size:10px;font-weight:700;color:#fff;flex:none}
+.st-good i{background:var(--good)}.st-warn i{background:var(--warn);color:#0b0b0b}.st-bad i{background:var(--crit)}.st-neutral i{background:var(--muted)}
+.tag{display:inline-block;font-size:11px;font-weight:600;line-height:1.6;padding:0 7px;border-radius:10px;border:1px solid var(--border);color:var(--ink-2);white-space:nowrap;margin:3px 4px 0 0}
+.pname{display:block}
+.meta-list{display:none;list-style:none;margin-top:8px}
+.meta-list li{padding:9px 0;border-bottom:1px solid var(--grid)}
+.meta-list li:last-child{border-bottom:0}
+.ml-head{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.ml-name{font-size:13.5px;font-weight:600}
+.ml-vals{font-size:12.5px;color:var(--ink-2);margin-top:2px;font-variant-numeric:tabular-nums}
+.ml-vals strong{color:var(--ink);font-weight:650}
+@media(max-width:640px){
+  #metaWrap{display:none}
+  .meta-list{display:block}
+  table.stack-sm thead{display:none}
+  table.stack-sm,table.stack-sm tbody,table.stack-sm tr,table.stack-sm th,table.stack-sm td{display:block;width:100%}
+  table.stack-sm tr{padding:9px 0;border-bottom:1px solid var(--grid)}
+  table.stack-sm tr:last-child{border-bottom:0}
+  table.stack-sm th,table.stack-sm td{border:0;padding:1px 0}
+  table.stack-sm tbody th{font-weight:650}
+}
+.mb{margin-bottom:16px}
+.bullets.cols{columns:2;column-gap:32px}
+.bullets.cols li{break-inside:avoid;-webkit-column-break-inside:avoid;page-break-inside:avoid;margin:0 0 10px}
+@media(max-width:900px){.bullets.cols{columns:1}}
+.fig.inline{background:none;border:0;border-radius:0;padding:16px 0 0;margin-top:18px;border-top:1px solid var(--grid)}
+
+/* Gráficos */
+.fig-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.tbl-btn{flex:none;-webkit-appearance:none;appearance:none;font:inherit;font-size:12px;font-weight:600;color:var(--ink-2);background:transparent;border:1px solid var(--border);border-radius:6px;padding:4px 10px;cursor:pointer;white-space:nowrap}
+.tbl-btn:hover{color:var(--ink);background:var(--wash)}
+.tbl-btn:focus-visible,.preset:focus-visible{outline:2px solid var(--s1);outline-offset:2px}
+.legend{display:flex;flex-wrap:wrap;gap:4px 14px;margin:10px 0 0;font-size:12.5px;color:var(--ink-2)}
+.key{display:inline-flex;align-items:center;gap:6px}
+.sw{display:inline-block;flex:none}
+.sw-bar{width:10px;height:10px;border-radius:2px}
+.sw-line{width:14px;height:2px;border-radius:1px}
+.sw.s1{background:var(--s1)}.sw.s2{background:var(--s2)}.sw.ctx{background:var(--ctx)}
+.chart{position:relative;margin-top:10px;min-height:24px}
+.chart svg{display:block;overflow:visible}
+.fig-note{font-size:12px;color:var(--muted);margin-top:8px}
+.grid-line{stroke:var(--grid);stroke-width:1}
+.axis-line{stroke:var(--axis);stroke-width:1}
+.tick{fill:var(--muted);font-size:11px;font-variant-numeric:tabular-nums}
+.xlabel{fill:var(--ink-2);font-size:11.5px}
+.ylabel{fill:var(--ink);font-size:12.5px}
+.vlabel{fill:var(--ink);font-size:11.5px;font-weight:600;font-variant-numeric:tabular-nums}
+.vlabel,.ylabel,.ref-label,.today-label{paint-order:stroke;stroke:var(--surface);stroke-width:3px;stroke-linejoin:round}
+.vnote{fill:var(--muted);font-weight:400}
+.f-s1{fill:var(--s1)}.f-s2{fill:var(--s2)}.f-ctx{fill:var(--ctx)}
+.ln-s1{stroke:var(--s1)}.ln-s2{stroke:var(--s2)}.ln-ctx{stroke:var(--ctx)}
+.line{fill:none;stroke-width:2;stroke-linejoin:round;stroke-linecap:round}
+.dot{stroke:var(--surface);stroke-width:2}
+.spark{fill:none;stroke:var(--ctx);stroke-width:2;stroke-linejoin:round;stroke-linecap:round}
+.cross{stroke:var(--axis);stroke-width:1}
+.ref{stroke:var(--ink-2);stroke-width:1}
+.ref-label{fill:var(--ink-2);font-size:11px}
+.hit{fill:transparent;outline:none}
+.hit:focus-visible{stroke:var(--s1);stroke-width:2}
+g.on path,g.on rect{opacity:.8}
+.seg-past{fill:var(--seg-past)}.seg-now{fill:var(--seg-now)}.seg-next{fill:var(--seg-next)}
+.seg-label{font-size:12px;font-weight:600}
+.lbl-past{fill:var(--seg-past-ink)}.lbl-now{fill:var(--seg-now-ink)}.lbl-next{fill:var(--seg-next-ink)}
+.today-line{stroke:var(--ink);stroke-width:2}
+.today-label{fill:var(--ink);font-size:11.5px;font-weight:650}
+.bf-tick{stroke:var(--ink-2);stroke-width:1}
+
+/* Dica (tooltip) */
+.tip{position:fixed;z-index:60;pointer-events:none;display:none;min-width:150px;max-width:280px;background:var(--surface);color:var(--ink);border:1px solid var(--border);border-radius:8px;box-shadow:var(--shadow);padding:8px 10px;font-size:12px;line-height:1.45}
+.tip-title{color:var(--ink-2);font-size:11.5px;margin-bottom:3px}
+.tip-row{display:flex;align-items:center;gap:6px}
+.tip-row strong{font-weight:650;font-variant-numeric:tabular-nums}
+.tip-lbl{color:var(--ink-2)}
+.tip-key{width:12px;height:2px;border-radius:1px;flex:none}
+.tip-key.s1{background:var(--s1)}.tip-key.s2{background:var(--s2)}.tip-key.ctx{background:var(--ctx)}
+
+/* Simulador */
+.sim-row{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-top:14px}
+.sim-row label{font-size:13px;color:var(--ink-2)}
+.sim-row output{font-size:22px;font-weight:650}
+input[type=range]{width:100%;margin:8px 0 4px;accent-color:var(--s1)}
+.presets{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+.preset{-webkit-appearance:none;appearance:none;font:inherit;font-size:12px;font-weight:600;color:var(--ink-2);background:transparent;border:1px solid var(--border);border-radius:14px;padding:3px 10px;cursor:pointer}
+.preset:hover{background:var(--wash);color:var(--ink)}
+.preset[aria-pressed="true"]{border-color:var(--s1);color:var(--ink);background:var(--wash)}
+.sim-out{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:16px 0 10px}
+.sim-out .lbl{display:block;font-size:12px;color:var(--ink-2)}
+.sim-out .val{display:block;font-size:18px;font-weight:650;white-space:nowrap}
+@media(max-width:420px){.sim-out{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.sim-out>div:last-child{grid-column:1/-1}}
+.foot{font-size:12px;color:var(--muted);margin-top:10px}
+
+/* Black November */
+.phase-list{list-style:none;margin-top:14px;display:grid;gap:4px}
+.phase{display:grid;grid-template-columns:12px minmax(0,1fr) auto;gap:0 10px;align-items:start;padding:8px 10px;border-radius:8px}
+.phase.now{background:var(--wash)}
+.p-sw{width:10px;height:10px;border-radius:2px;margin-top:5px}
+.p-sw.past{background:var(--seg-past)}.p-sw.now{background:var(--seg-now)}.p-sw.next{background:var(--seg-next)}
+.p-name{font-weight:650;font-size:13.5px}
+.p-goal{font-size:12.5px;color:var(--ink-2)}
+.p-when{font-size:12.5px;color:var(--ink-2);white-space:nowrap;text-align:right}
+.p-state{display:block;font-size:11.5px;font-weight:600;color:var(--ink)}
+.agenda{list-style:none;margin-top:6px}
+.agenda li{display:grid;grid-template-columns:120px minmax(0,1fr);gap:10px;padding:9px 0;border-bottom:1px solid var(--grid)}
+.agenda li:last-child{border-bottom:0}
+.a-when{font-size:12.5px;color:var(--ink-2);font-variant-numeric:tabular-nums}
+.a-when strong{display:block;color:var(--ink);font-size:13px;font-weight:650}
+.a-ch{display:inline-block;font-size:11px;font-weight:600;color:var(--ink-2);border:1px solid var(--border);border-radius:10px;padding:0 7px;margin-bottom:3px}
+.a-msg{font-size:13px}
+.badge-today{display:inline-block;font-size:11px;font-weight:650;color:var(--ink);background:var(--wash);border-radius:10px;padding:0 7px;margin-left:4px}
+.offer-big{font-size:26px;font-weight:700;letter-spacing:-.01em;margin-top:10px}
+.weeks{list-style:none;margin-top:8px}
+.weeks li{padding:8px 10px;border-radius:8px}
+.weeks li.now{background:var(--wash)}
+.w-title{font-weight:650;font-size:13.5px}
+.w-detail{font-size:12.5px;color:var(--ink-2)}
+details.more{margin-top:12px}
+details.more summary{cursor:pointer;font-size:13px;font-weight:600;color:var(--ink-2)}
+details.more summary:hover{color:var(--ink)}
+details.more[open] summary{margin-bottom:6px}
+.empty{font-size:13px;color:var(--ink-2);padding:10px 0}
+
+footer{border-top:1px solid var(--border);padding:16px 0 28px;font-size:12px;color:var(--muted)}
+footer p + p{margin-top:4px}
+</style>
+</head>
+<body>
+
+<header class="wrap top">
+  <a class="back" href="../index.html">&larr; Dashboards</a>
+  <div class="title-row">
+    <div>
+      <h1>Christee Jeans</h1>
+      <p class="sub">E-commerce de moda plus size feminina &middot; performance e Black November</p>
+    </div>
+    <div class="stamp">
+      <span>Dados fechados até <strong>setembro/2026</strong></span>
+      <span>Atualizado em 03/11/2026</span>
+    </div>
+  </div>
+</header>
+
+<div class="tabs-bar">
+  <nav class="wrap tabs" role="tablist" aria-label="Seções do painel">
+    <button class="tab" role="tab" id="t-geral" aria-controls="p-geral" aria-selected="true">Visão geral</button>
+    <button class="tab" role="tab" id="t-evolucao" aria-controls="p-evolucao" aria-selected="false" tabindex="-1">Evolução</button>
+    <button class="tab" role="tab" id="t-canais" aria-controls="p-canais" aria-selected="false" tabindex="-1">Canais</button>
+    <button class="tab" role="tab" id="t-regioes" aria-controls="p-regioes" aria-selected="false" tabindex="-1">Regiões</button>
+    <button class="tab" role="tab" id="t-produtos" aria-controls="p-produtos" aria-selected="false" tabindex="-1">Produtos</button>
+    <button class="tab" role="tab" id="t-black" aria-controls="p-black" aria-selected="false" tabindex="-1">Black November</button>
+  </nav>
+</div>
+
+<main class="wrap">
+
+  <!-- ============ VISÃO GERAL ============ -->
+  <section class="panel" id="p-geral" role="tabpanel" aria-labelledby="t-geral">
+    <div class="grid hero-row">
+      <div class="card">
+        <p class="eyebrow">Receita faturada &middot; setembro/26</p>
+        <p class="hero-value" id="heroValue">R$ 30.876</p>
+        <p class="hero-sub" id="heroSub">79,2% da meta</p>
+        <div class="meter" id="heroMeter" role="img" aria-label="Receita faturada em 79,2% da meta"><span style="width:79.2%"></span></div>
+        <div class="meter-scale"><span>R$ 0</span><span id="heroMetaLbl">Meta</span></div>
+        <p class="hero-note">A receita captada no GA4 foi de <strong>R$ 49.325</strong>, 3,8% acima da meta. O que não virou faturamento ficou na etapa de pagamento.</p>
+      </div>
+      <div class="card">
+        <h2>Leitura do mês</h2>
+        <p class="desc">Setembro mostrou um canal que sabe vender, mas que perdeu receita no caminho entre o pedido e o pagamento.</p>
+        <ul class="bullets">
+          <li><strong>A venda captada bateu a meta:</strong> R$ 49.325 no GA4 (+3,8%) e conversão de 1,11% (meta 0,85%).</li>
+          <li><strong>O entrave foi a aprovação de pagamento:</strong> 64,2% contra meta de 82% (em agosto foi 81,9%). Com 82%, o mesmo volume de pedidos teria faturado cerca de R$ 39,4 mil, acima da meta.</li>
+          <li><strong>O tráfego ficou mais caro:</strong> CPS geral de R$ 0,71 (meta R$ 0,55); o CPS de mídia paga foi de R$ 0,75 para R$ 1,01 em um mês.</li>
+        </ul>
+        <p class="callout"><strong>Condição para escalar:</strong> corrigir a aprovação de pagamento antes de aumentar a verba.</p>
+      </div>
+    </div>
+
+    <h2 class="section-title">Setembro em 8 indicadores <span>&middot; variação contra agosto; linha de maio a setembro</span></h2>
+    <div class="kpis" id="kpis"></div>
+
+    <div class="grid g2">
+      <div class="card">
+        <h2>Meta &times; realizado</h2>
+        <p class="desc">Setembro/26</p>
+        <div class="table-wrap" id="metaWrap"></div>
+      </div>
+      <div class="card">
+        <h2>Quanto vale a aprovação de pagamento</h2>
+        <p class="desc">Mesmo volume e ticket de setembro (243 pedidos captados, ticket pago de R$ 197,93), mudando só a aprovação.</p>
+        <div class="sim-row">
+          <label for="aprovRange">Aprovação de pagamento</label>
+          <output id="aprovOut" for="aprovRange">64,2%</output>
+        </div>
+        <input type="range" id="aprovRange" min="50" max="95" step="0.1" value="64.2" aria-describedby="simResult">
+        <div class="presets" role="group" aria-label="Cenários">
+          <button type="button" class="preset" data-v="64.2" aria-pressed="true">Real · 64,2%</button>
+          <button type="button" class="preset" data-v="70" aria-pressed="false">70%</button>
+          <button type="button" class="preset" data-v="75" aria-pressed="false">75%</button>
+          <button type="button" class="preset" data-v="82" aria-pressed="false">Meta · 82%</button>
+        </div>
+        <div class="sim-out" id="simResult" role="status" aria-live="polite">
+          <div><span class="lbl">Pedidos pagos</span><span class="val" id="simPed">156</span></div>
+          <div><span class="lbl">Receita faturada</span><span class="val" id="simRec">R$ 30.876</span></div>
+          <div><span class="lbl">Frente à meta</span><span class="val" id="simGap">&minus;R$ 8.092</span></div>
+        </div>
+        <div class="meter" aria-hidden="true"><span id="simBar" style="width:79.2%"></span></div>
+        <div class="meter-scale"><span>R$ 0</span><span id="simMetaLbl">Meta R$ 38.969</span></div>
+        <p class="foot">Cada 1 ponto percentual de aprovação vale cerca de R$ 481 de faturamento por mês nesse volume. Na Black, com mais pedidos, o efeito é proporcionalmente maior.</p>
+        <div id="pagtoHost"></div>
+      </div>
+    </div>
+
+    <div class="grid g3">
+      <div class="card">
+        <h2>O que funcionou</h2>
+        <ul class="bullets">
+          <li>Receita captada <strong>+40,7%</strong> sobre agosto (R$ 35.062 &rarr; R$ 49.325), acima da meta.</li>
+          <li>Conversão de 0,75% para <strong>1,11%</strong> (meta 0,85%); pedidos captados de 160 para 243 (+52%).</li>
+          <li>Mídia paga respondeu por <strong>82,9%</strong> da receita captada (R$ 40.870) com 71% das sessões.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h2>O que puxou o resultado para baixo</h2>
+        <ul class="bullets">
+          <li><strong>Aprovação:</strong> de 81,9% para 64,2%. A receita cancelada foi de R$ 8.398 para R$ 18.448 (37,4% da captada, contra 24,0% em agosto): 87 pedidos não viraram pagamento.</li>
+          <li><strong>Custo de tráfego:</strong> investimento +28,3% sobre agosto, mas as sessões de mídia paga caíram 4,9%.</li>
+          <li><strong>ROAS faturado</strong> caiu de 2,18 para 1,97, embora o captado tenha subido de 2,87 para 3,15.</li>
+          <li><strong>Ticket:</strong> R$ 197,93, abaixo da meta de R$ 205 (cerca de 1,6 item por pedido).</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h2>Hipóteses para a queda da aprovação</h2>
+        <ul class="bullets">
+          <li>Pix gerado e não pago entra como pedido cancelado, e o volume de tráfego frio cresceu.</li>
+          <li>Antifraude ou gateway mais restritivo diante de pedidos de novos perfis e regiões.</li>
+          <li>Recusas de cartão em parcelamentos longos ou limites baixos.</li>
+        </ul>
+        <p class="desc" style="margin-top:10px">Em junho, por forma de pagamento, o Pix aprovou 75% dos pedidos e o cartão de crédito, 41% (ver o simulador acima).</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>O que os dados pedem e a resposta no plano</h2>
+      <div class="table-wrap">
+        <table class="stack-sm">
+          <thead><tr><th scope="col">O que os dados de setembro mostram</th><th scope="col">Resposta no plano da Black</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">Aprovação em 64,2% (meta 82%)</th><td>Auditoria de pagamentos antes da Esquenta, lembrete de Pix pendente e monitoramento diário.</td></tr>
+            <tr><th scope="row">CPS de mídia em R$ 1,01 (+35% sobre agosto)</th><td>Canais próprios (VIP, e-mail, RFM), Google/PMax e remarketing, e criativos novos antes do pico.</td></tr>
+            <tr><th scope="row">1,56 item por pedido e ticket de R$ 197,93</th><td>Desconto progressivo, &ldquo;leve mais, pague menos&rdquo; e combos com o produto-âncora.</td></tr>
+            <tr><th scope="row">Um produto responde por 30% da receita de itens</th><td>Estoque garantido da Reta Mom com Brilho e combos com itens de muito tráfego e pouca conversão.</td></tr>
+            <tr><th scope="row">E-mail quase zerado e grupo VIP sem rotina</th><td>Cadência fixa de e-mail e VIP, com benefício real para quem está na lista.</td></tr>
+            <tr><th scope="row">Sul converte cerca de 2&times; São Paulo</th><td>Teste regional separado (RS e SC), sem tirar verba de SP.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ EVOLUÇÃO ============ -->
+  <section class="panel" id="p-evolucao" role="tabpanel" aria-labelledby="t-evolucao" hidden>
+    <p class="lede">Maio a setembro de 2026. Maio é parcial: a primeira venda da loja foi em 13/05. A receita captada é o que o GA4 registrou; a faturada é o que foi pago de fato (Tray).</p>
+    <div class="grid g2" id="evoCharts"></div>
+    <h2 class="section-title">Outros indicadores <span>&middot; um gráfico por métrica</span></h2>
+    <div class="grid g2" id="evoSmall"></div>
+    <div class="card">
+      <h2>Tabela completa</h2>
+      <p class="desc">Valores mensais como no fechamento de setembro.</p>
+      <div class="table-wrap" id="evoTable"></div>
+    </div>
+  </section>
+
+  <!-- ============ CANAIS ============ -->
+  <section class="panel" id="p-canais" role="tabpanel" aria-labelledby="t-canais" hidden>
+    <p class="lede">Setembro/26, por origem da sessão no GA4. A conversão aqui é a do GA4 (sessões com compra); a de 1,11% usada no acompanhamento mensal é pedidos captados &divide; sessões.</p>
+    <div class="grid g2" id="canaisCharts"></div>
+    <div class="card mb">
+        <h2>Leitura</h2>
+        <ul class="bullets cols">
+          <li><strong>Facebook Ads</strong> concentra 61% das sessões e 60% da receita, com conversão de 1,03%.</li>
+          <li><strong>Google</strong> (orgânico e pago) tem 11% das sessões e 23% da receita. Converte 1,88%, 83% acima do Facebook, com ticket 12% maior: é o canal com mais espaço para verba incremental.</li>
+          <li><strong>Instagram orgânico</strong> (ig, l.instagram.com e Linktree): 538 sessões, 17 pedidos e R$ 3.558,78 (7,2% da receita), com conversão de cerca de 3,2%. Pouco volume e alta intenção.</li>
+          <li><strong>E-mail</strong> gerou 7 sessões e 1 pedido: o canal praticamente não existe hoje, e é onde a Black pode construir uma base própria.</li>
+        </ul>
+    </div>
+    <div class="card">
+      <h2>Todas as origens</h2>
+      <div class="table-wrap" id="canaisTable"></div>
+      <p class="foot">As origens listadas somam 17.627 sessões e R$ 48.877,92; o restante do total do site vem de outras origens.</p>
+    </div>
+  </section>
+
+  <!-- ============ REGIÕES ============ -->
+  <section class="panel" id="p-regioes" role="tabpanel" aria-labelledby="t-regioes" hidden>
+    <p class="lede">Setembro/26, os 10 estados com mais receita. Conversão do GA4 (sessões com compra).</p>
+    <div class="grid g2" id="regioesCharts"></div>
+    <div class="card mb">
+        <h2>Leitura</h2>
+        <ul class="bullets cols">
+          <li><strong>São Paulo</strong> segue como o maior volume (51% das sessões e 45% da receita), mas converte abaixo da média do site (0,99%).</li>
+          <li><strong>O Sul é a melhor oportunidade:</strong> RS e SC somam 8% das sessões, 14% dos pedidos e 14,5% da receita, e convertem cerca de 2&times; São Paulo (pedidos &divide; sessões: 2,0% contra 1,0%).</li>
+          <li><strong>Minas e Rio</strong> somam 24% das sessões com conversão abaixo da média (0,79% e 0,87%). Minas tem ticket alto (R$ 266,90). Em julho essas regiões convertiam melhor: pede teste com verba separada.</li>
+          <li><strong>Amostras pequenas:</strong> Pernambuco, Paraná, Ceará e Mato Grosso do Sul têm de 2 a 5 pedidos cada.</li>
+        </ul>
+    </div>
+    <div class="card">
+      <h2>Estados</h2>
+      <div class="table-wrap" id="regioesTable"></div>
+    </div>
+  </section>
+
+  <!-- ============ PRODUTOS ============ -->
+  <section class="panel" id="p-produtos" role="tabpanel" aria-labelledby="t-produtos" hidden>
+    <p class="lede">Setembro/26, os 10 produtos com mais receita de itens (GA4).</p>
+    <div class="kpis" id="prodTiles"></div>
+    <div class="grid g2" id="produtosCharts"></div>
+    <div class="card">
+      <h2>Funil por produto</h2>
+      <p class="desc">Vistos, adicionados ao carrinho e comprados. &ldquo;Carrinho &divide; vistos&rdquo; é calculado a partir das colunas; a conversão é a reportada pelo GA4.</p>
+      <div class="table-wrap" id="produtosTable"></div>
+    </div>
+  </section>
+
+  <!-- ============ BLACK NOVEMBER ============ -->
+  <section class="panel" id="p-black" role="tabpanel" aria-labelledby="t-black" hidden>
+    <p class="lede">Plano apresentado em 14/10/2026: Esquenta Black de 25 a 31/10 e Black November de 02 a 30/11, com Black Friday em 27/11. Datas e ações seguem o plano; as ofertas finais dependem de margem e estoque.</p>
+    <div class="kpis k3" id="blackTiles"></div>
+    <div class="card">
+      <h2>Linha do tempo</h2>
+      <p class="desc">19/10 a 07/12/2026</p>
+      <div class="chart" id="timeline"></div>
+      <ol class="phase-list" id="phaseList"></ol>
+    </div>
+    <div class="grid g2" style="margin-top:16px">
+      <div class="card">
+        <h2>Próximos 7 dias</h2>
+        <p class="desc" id="weekDesc"></p>
+        <ul class="agenda" id="agendaWeek"></ul>
+      </div>
+      <div class="card">
+        <h2>Oferta e verba</h2>
+        <p class="desc">Nos criativos da Black (27/10)</p>
+        <p class="offer-big">10% OFF + 5% no Pix</p>
+        <p class="desc">Até 15% em produtos selecionados. O Pix aprova na hora, o que ataca justamente o ponto fraco de setembro.</p>
+        <ul class="bullets">
+          <li><strong>VIP e top clientes (Matriz RFM):</strong> benefício a mais em cada fase (desconto extra ou brinde), não só o acesso antecipado.</li>
+          <li><strong>Verba de mídia:</strong> R$ 15 mil mantidos, divididos entre performance e testes (alinhamento de 15/10).</li>
+          <li><strong>Condição para escalar:</strong> corrigir a aprovação de pagamento antes de aumentar a verba.</li>
+        </ul>
+        <details class="more">
+          <summary>Escada de ofertas proposta em 14/10 (sugestão)</summary>
+          <div class="table-wrap">
+            <table class="stack-sm">
+              <thead><tr><th scope="col">Fase</th><th scope="col">Desconto (de/por)</th><th scope="col">Progressivo</th><th scope="col">Frete</th></tr></thead>
+              <tbody>
+                <tr><th scope="row">Esquenta Black (25 a 31/10)</th><td>Até 20% em peças selecionadas</td><td>2 peças: 10% &middot; 3 ou mais: 15%</td><td>Grátis com piso reduzido (a validar)</td></tr>
+                <tr><th scope="row">Black November (02 a 22/11)</th><td>Até 30% geral; até 40% nas peças selecionadas</td><td>2 peças: 20% &middot; 3 ou mais: 30%</td><td>Grátis com piso reduzido, ou sem piso em dias de tema</td></tr>
+                <tr><th scope="row">Pico (23 a 30/11)</th><td>Até 40% em seleção, a maior oferta do mês</td><td>Mesma escada, mais brinde nos primeiros pedidos (opcional)</td><td>Grátis sem piso na Black Friday (a validar)</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="foot">Percentuais eram exemplos para a conversa; os valores finais dependem de margem por categoria, estoque e orçamento.</p>
+        </details>
+      </div>
+    </div>
+    <div class="grid g2">
+      <div class="card">
+        <h2>Temas, lives e feriados</h2>
+        <ul class="weeks" id="weekList"></ul>
+        <p class="foot">Feriados no período: 02/11 (Finados, segunda-feira, abertura da Black November) e 20/11 (Consciência Negra, sexta-feira).</p>
+      </div>
+      <div class="card">
+        <h2>Pendências levantadas em 14/10</h2>
+        <ul class="bullets">
+          <li>Margem por categoria, desconto máximo por produto e o teto do benefício VIP.</li>
+          <li>Se a promoção empilha com o desconto de Pix do site e qual será o piso do frete grátis.</li>
+          <li>Estoque por produto, principalmente da Reta Mom com Brilho, e reposição em novembro. Há encalhados ou lançamentos?</li>
+          <li>Tamanho da base de clientes e da lista de e-mail, ferramenta de envio e acesso aos pedidos para a Matriz RFM.</li>
+          <li>Quantas pessoas estão no grupo VIP hoje e quem o administra.</li>
+          <li>Capacidade de atendimento e expedição, e prazos de corte para entrega antes do Natal.</li>
+          <li>Disponibilidade para as duas lives (quem apresenta).</li>
+          <li>Orçamento de mídia de novembro e verba de teste para o TikTok.</li>
+          <li>Contato no gateway e no antifraude para a auditoria de pagamentos.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="card">
+      <details class="more" id="agendaAll" style="margin-top:0">
+        <summary>Agenda completa de envios (19/10 a 01/12)</summary>
+        <div class="table-wrap" id="agendaTable"></div>
+      </details>
+    </div>
+  </section>
+</main>
+
+<footer class="wrap">
+  <p>Fontes: &ldquo;Fechamento de Setembro e Planejamento Black November&rdquo; (reunião de 14/10/2026), alinhamento de verba (15/10/2026), Relatório de Performance de junho/2026 e criativos da Black (27/10/2026). Dados de GA4, Meta Ads, Google Ads e Tray.</p>
+  <p>Receita captada = pedidos registrados no GA4. Receita faturada = pedidos pagos. CPS = investimento &divide; sessões.</p>
+</footer>
+
+<script>
+(function () {
+  'use strict';
+
+  /* =====================================================================
+     DADOS
+     ===================================================================== */
+  var MESES = ['Mai/26', 'Jun/26', 'Jul/26', 'Ago/26', 'Set/26'];
+  var MESES_LONGO = ['Maio/2026', 'Junho/2026', 'Julho/2026', 'Agosto/2026', 'Setembro/2026'];
+
+  var EVO = {
+    invest:    [1433, 5565, 7086, 12217, 15676],
+    captada:   [6162, 30454, 28087, 35062, 49325],
+    faturada:  [2404, 13534, 17601, 26664, 30876],
+    cancelada: [3758, 16920, 10486, 8398, 18448],
+    roasCap:   [4.30, 5.47, 3.96, 2.87, 3.15],
+    roasFat:   [1.68, 2.43, 2.48, 2.18, 1.97],
+    aprov:     [58.6, 59.3, 73.2, 81.9, 64.2],
+    conv:      [0.97, 1.15, 0.97, 0.75, 1.11],
+    pedCap:    [29, 108, 112, 160, 243],
+    pedPag:    [17, 64, 82, 131, 156],
+    ticket:    [141, 211, 215, 204, 198],
+    sessoes:   [2992, 9419, 11574, 21383, 21928],
+    cps:       [0.48, 0.59, 0.61, 0.57, 0.71],
+    cpsMidia:  [null, 0.76, 0.75, 0.75, 1.01]
+  };
+
+  // Setembro (valores exatos) e agosto, para as variações.
+  var SET = { invest: 15676.30, captada: 49324.75, faturada: 30876.37, pedCap: 243, pedPag: 156, sessoes: 21928 };
+  SET.ticketExato = SET.faturada / SET.pedPag;     // usado no simulador
+  SET.ticket = Math.round(SET.ticketExato * 100) / 100; // 197,93 (como no fechamento)
+  SET.cps = SET.invest / SET.sessoes;              // 0,71
+  SET.conv = SET.pedCap / SET.sessoes * 100;       // 1,11%
+  SET.aprov = SET.pedPag / SET.pedCap * 100;       // 64,2%
+  var AGO = { captada: 35061.96, faturada: 26664, invest: 12217, pedPag: 131 };
+  AGO.ticket = AGO.faturada / AGO.pedPag;
+
+  var TILES = [
+    { label: 'Receita captada (GA4)', cur: SET.captada, prev: AGO.captada, f: 'brl', good: 1, mode: 'rel', spark: EVO.captada },
+    { label: 'Receita faturada', cur: SET.faturada, prev: AGO.faturada, f: 'brl', good: 1, mode: 'rel', spark: EVO.faturada },
+    { label: 'Investimento em mídia', cur: SET.invest, prev: AGO.invest, f: 'brl', good: 0, mode: 'rel', spark: EVO.invest },
+    { label: 'ROAS faturado', cur: 1.97, prev: 2.18, f: 'x2', good: 1, mode: 'abs', spark: EVO.roasFat },
+    { label: 'Aprovação de pagamento', cur: SET.aprov, prev: 81.9, f: 'pct1', good: 1, mode: 'pp1', spark: EVO.aprov },
+    { label: 'Taxa de conversão', cur: SET.conv, prev: 0.75, f: 'pct2', good: 1, mode: 'pp2', spark: EVO.conv },
+    { label: 'Ticket médio', cur: SET.ticket, prev: AGO.ticket, f: 'brl2', good: 1, mode: 'rel', spark: EVO.ticket },
+    { label: 'CPS geral', cur: SET.cps, prev: 0.57, f: 'brl2', good: -1, mode: 'absBrl', spark: EVO.cps }
+  ];
+
+  // dir: 1 = maior é melhor, -1 = menor é melhor, 0 = referência (verba)
+  var METAS = [
+    { k: 'Investimento em mídia', meta: 15000, real: SET.invest, f: 'brl2', dir: 0 },
+    { k: 'Receita captada (GA4)', meta: 47522.73, real: SET.captada, f: 'brl2', dir: 1 },
+    { k: 'Receita faturada', meta: 38968.64, real: SET.faturada, f: 'brl2', dir: 1 },
+    { k: 'Pedidos captados', meta: 232, real: SET.pedCap, f: 'int', dir: 1 },
+    { k: 'Sessões', meta: 27273, real: SET.sessoes, f: 'int', dir: 1 },
+    { k: 'CPS (geral)', meta: 0.55, real: SET.cps, f: 'brl2', dir: -1 },
+    { k: 'Taxa de conversão', meta: 0.85, real: SET.conv, f: 'pct2', dir: 1, pp: 2 },
+    { k: 'Ticket médio', meta: 205, real: SET.ticket, f: 'brl2', dir: 1 },
+    { k: 'Aprovação de pagamento', meta: 82, real: SET.aprov, f: 'pct1', mf: 'pct0', dir: 1, pp: 1 }
+  ];
+
+  // Junho/26, extrato Tray por forma de pagamento (aprovação por pedidos).
+  var PAGTO_JUN = [
+    { label: 'Pix', aprov: 75, pago: 5599, naoPago: 2018 },
+    { label: 'Cartão de crédito', aprov: 41, pago: 7344, naoPago: 17367 },
+    { label: 'Boleto', aprov: 25, pago: 236, naoPago: 796 }
+  ];
+
+  var CANAIS = [
+    { label: 'Facebook Ads', origem: 'facebook_cpc', s: 13382, p: 148, c: 1.03, r: 29629.47, t: 200.20 },
+    { label: 'Google', origem: 'google', s: 2443, p: 51, c: 1.88, r: 11464.05, t: 224.79 },
+    { label: 'Direto', origem: '(direct)', s: 1257, p: 23, c: 1.51, r: 4127.76, t: 179.47 },
+    { label: 'Instagram (ig)', origem: 'ig', s: 73, p: 5, c: 6.85, r: 1416.10, t: 283.22 },
+    { label: 'Instagram (link)', origem: 'l.instagram.com', s: 260, p: 6, c: 2.31, r: 1077.62, t: 179.60 },
+    { label: 'Linktree', origem: 'linktr.ee', s: 205, p: 6, c: 2.93, r: 1065.06, t: 177.51 },
+    { label: 'E-mail', origem: 'e-mail', s: 7, p: 1, c: 14.29, r: 97.86, t: 97.86 }
+  ];
+  var SITE = { s: 21928, p: 243, c: 1.02, r: 49324.75, t: 202.98 };
+
+  var REGIOES = [
+    { label: 'São Paulo', s: 11258, p: 118, c: 0.99, r: 22165.72, t: 187.85 },
+    { label: 'Minas Gerais', s: 2896, p: 25, c: 0.79, r: 6672.55, t: 266.90 },
+    { label: 'Rio de Janeiro', s: 2422, p: 23, c: 0.87, r: 4656.10, t: 202.44 },
+    { label: 'Rio Grande do Sul', s: 1139, p: 25, c: 1.76, r: 4462.48, t: 178.50 },
+    { label: 'Santa Catarina', s: 619, p: 10, c: 1.45, r: 2692.14, t: 269.21 },
+    { label: 'Pernambuco', s: 218, p: 4, c: 1.83, r: 1386.58, t: 346.65 },
+    { label: 'Paraná', s: 542, p: 5, c: 0.74, r: 1149.76, t: 229.95 },
+    { label: 'Espírito Santo', s: 315, p: 6, c: 1.27, r: 838.42, t: 139.74 },
+    { label: 'Ceará', s: 302, p: 4, c: 1.32, r: 806.46, t: 201.61 },
+    { label: 'Mato Grosso do Sul', s: 120, p: 2, c: 1.67, r: 718.20, t: 359.10 }
+  ];
+
+  var PRODUTOS = [
+    { label: 'Reta Mom com Brilho', nome: 'Calça Jeans Feminina Reta Mom Plus Size Com Brilho', v: 8447, ca: 533, co: 102, r: 13770, c: 0.75, tag: 'Produto-âncora' },
+    { label: 'Pantalona Wide Leg com Brilho', nome: 'Calça Jeans Feminina Pantalona Wide Leg Plus Size Com Brilho', v: 3089, ca: 166, co: 20, r: 3180, c: 0.26, tag: 'Muito tráfego, pouca conversão' },
+    { label: 'Wide Leg Preto Grafite', nome: 'Calça jeans feminina Wide Leg Plus Size Pantalona Preto Grafite', v: 1428, ca: 85, co: 26, r: 3094, c: 0.40 },
+    { label: 'Wide Leg Marrom', nome: 'Calça jeans Feminina Wide leg Plus Size Marrom', v: 586, ca: 67, co: 16, r: 1904, c: 0.45 },
+    { label: 'Pantalona Premium Azul Escuro', nome: 'Calça Jeans Pantalona Wide Leg Plus Size Premium Azul Escuro', v: 1821, ca: 66, co: 14, r: 1666, c: 0.32 },
+    { label: 'Skinny Preta', nome: 'Calça Skinny Jeans Preta Plus Size Feminina', v: 407, ca: 38, co: 13, r: 1547, c: 0.24 },
+    { label: 'Mom Preto Grafite', nome: 'Calça Jeans Feminina Mom Preto Grafite Plus Size', v: 4308, ca: 65, co: 12, r: 1439, c: 0.15, tag: 'Muito tráfego, pouca conversão' },
+    { label: 'Mom Bege', nome: 'Calça Jeans Feminina Mom Plus Size Bege', v: 459, ca: 28, co: 9, r: 1071, c: 0.17 },
+    { label: 'Flare Boca de Sino', nome: 'Calça Flare Jeans Boca de Sino Plus Size Feminina', v: 383, ca: 23, co: 8, r: 952, c: 0.17 },
+    { label: 'Flare Boca de Sino Preta', nome: 'Calça Flare Jeans Boca de Sino Plus Size Preta', v: 313, ca: 26, co: 7, r: 833, c: 0.52 }
+  ];
+  var LOJA = { vistos: 31060, carrinho: 1821, comprados: 378, receita: 45150 };
+
+  var FASES = [
+    { name: 'Preparação', short: 'Preparação', start: '2026-10-19', end: '2026-10-24', goal: 'Destravar a aprovação e montar a base: auditoria de pagamentos, oferta, lista VIP, site e criativos.' },
+    { name: 'Esquenta Black', short: 'Esquenta', start: '2026-10-25', end: '2026-10-31', goal: 'Aquecer a base e vender com oferta mais leve. Encerra sábado, 31/10, às 23h59.' },
+    { name: 'Virada', short: 'Virada', start: '2026-11-01', end: '2026-11-01', goal: 'Transição: avisos de “amanhã começa” e abertura para o VIP às 19h.' },
+    { name: 'Black November', short: 'Black November', start: '2026-11-02', end: '2026-11-22', goal: 'Volume com margem: um tema por semana, drops no grupo, lives e ofertas progressivas.' },
+    { name: 'Black Week, Black Friday e Cyber Monday', short: 'Pico', start: '2026-11-23', end: '2026-11-30', goal: 'Maior faturamento do mês: VIP abre qui. 26/11 às 19h, Black Friday 27/11, Cyber Monday 30/11 até 23h59.' },
+    { name: 'Pós-Black', short: 'Pós-Black', start: '2026-12-01', end: '2026-12-07', goal: 'Recuperar carrinhos e Pix pendentes, pesquisa pós-compra e início do Natal.' }
+  ];
+
+  var SEMANAS = [
+    { n: 1, start: '2026-11-02', end: '2026-11-08', theme: 'Mom', detail: 'Com a Reta Mom com Brilho, o produto-âncora.' },
+    { n: 2, start: '2026-11-09', end: '2026-11-15', theme: 'Wide Leg e Pantalona', detail: 'Live 1 na quarta, 11/11, às 20h: “monte seu look”, com ofertas exclusivas.' },
+    { n: 3, start: '2026-11-16', end: '2026-11-22', theme: 'Jaquetas, saias e shorts', detail: 'Com “monte o look”.' },
+    { n: 0, start: '2026-11-23', end: '2026-11-30', theme: 'Pico: Black Week, Black Friday e Cyber Monday', detail: 'Live 2 na quarta, 25/11, às 20h (pré-Black Friday). Black Friday na sexta, 27/11.' }
+  ];
+
+  var AGENDA_FIXA = [
+    { d: '2026-10-19', h: '10h', ch: 'E-mail e grupo', msg: 'E-mail 1: vem aí a Black November e convite à lista VIP. Mensagem fixada no grupo.' },
+    { d: '2026-10-21', h: '10h', ch: 'E-mail (RFM)', msg: 'Top clientes: benefício único e exclusivo na Esquenta e na Black.' },
+    { d: '2026-10-23', h: '10h', ch: 'E-mail', msg: 'E-mail 2: a Esquenta começa domingo.' },
+    { d: '2026-10-24', h: '19h', ch: 'Grupo VIP', msg: 'Abertura da Esquenta para o VIP, com benefício a mais.' },
+    { d: '2026-10-25', h: '8h', ch: 'E-mail e site', msg: 'E-mail 3: a Esquenta abriu.' },
+    { d: '2026-10-27', h: '19h', ch: 'Grupo VIP', msg: 'Drop 1 da Esquenta.' },
+    { d: '2026-10-29', h: '19h', ch: 'Grupo VIP', msg: 'Drop 2 e enquete do tema da semana 1.' },
+    { d: '2026-10-30', h: '10h', ch: 'E-mail', msg: 'Últimos dias da Esquenta.' },
+    { d: '2026-10-31', h: '18h', ch: 'E-mail e grupo', msg: 'Última hora da Esquenta (fecha às 23h59).' },
+    { d: '2026-11-01', h: '10h', ch: 'E-mail', msg: 'E-mail 4: amanhã começa a Black November.' },
+    { d: '2026-11-01', h: '19h', ch: 'Grupo VIP', msg: 'Abertura da Black November para o VIP.' },
+    { d: '2026-11-11', h: '20h', ch: 'Live', msg: 'Live 1: monte seu look, com ofertas exclusivas.' },
+    { d: '2026-11-23', h: '8h', ch: 'E-mail', msg: 'Black Week começou: faltam 4 dias.' },
+    { d: '2026-11-24', h: '19h', ch: 'Grupo VIP', msg: '“Deixe no carrinho”: lista de desejos antes da Black Friday.' },
+    { d: '2026-11-25', h: '10h', ch: 'E-mail', msg: 'Amanhã, às 19h, o VIP abre a Black Friday.' },
+    { d: '2026-11-25', h: '20h', ch: 'Live', msg: 'Live 2: pré-Black Friday.' },
+    { d: '2026-11-26', h: '19h', ch: 'Grupo VIP', msg: 'Abertura da Black Friday para o VIP, com benefício a mais.' },
+    { d: '2026-11-27', h: '8h', ch: 'E-mail', msg: 'E-mail 8: a Black Friday abriu.' },
+    { d: '2026-11-27', h: '8h, 12h, 19h e 22h', ch: 'Grupo VIP', msg: 'Abertura, flash 1, flash 2 e última hora do dia.' },
+    { d: '2026-11-27', h: '14h', ch: 'E-mail', msg: 'Reforço só para quem não abriu o e-mail das 8h.' },
+    { d: '2026-11-28', h: '10h', ch: 'E-mail', msg: 'A Black continua: o que ainda tem.' },
+    { d: '2026-11-29', h: '18h', ch: 'Grupo VIP', msg: 'Atualização e última chamada do fim de semana.' },
+    { d: '2026-11-30', h: '8h', ch: 'E-mail', msg: 'Cyber Monday: último dia.' },
+    { d: '2026-11-30', h: '20h', ch: 'E-mail e grupo', msg: 'Faltam 4 horas (fecha às 23h59).' },
+    { d: '2026-12-01', h: '10h', ch: 'WhatsApp 1 a 1', msg: 'Recuperação de carrinhos da Black (até 3 mensagens por pessoa).' }
+  ];
+
+  /* =====================================================================
+     FORMATOS (pt-BR)
+     ===================================================================== */
+  var MINUS = '−', NBSP = ' ';
+  function num(v, dec) {
+    dec = dec || 0;
+    var neg = v < 0;
+    var parts = Math.abs(v).toFixed(dec).split('.');
+    var i = parts[0], out = '';
+    while (i.length > 3) { out = '.' + i.slice(i.length - 3) + out; i = i.slice(0, i.length - 3); }
+    out = i + out;
+    if (parts[1]) out += ',' + parts[1];
+    if (neg && /[1-9]/.test(out)) out = MINUS + out;
+    return out;
+  }
+  function brl(v, dec) {
+    var s = num(v, dec || 0);
+    return s.charAt(0) === MINUS ? MINUS + 'R$' + NBSP + s.slice(1) : 'R$' + NBSP + s;
+  }
+  function pct(v, dec) { return num(v, dec == null ? 1 : dec) + '%'; }
+  function mil(v) { return Math.abs(v) >= 1000 ? 'R$' + NBSP + num(v / 1000, 1) + NBSP + 'mil' : brl(v); }
+  function axisMil(v, d) { if (v === 0) return '0'; return v >= 1000 ? num(v / 1000, (v % 1000) ? 1 : 0) + NBSP + 'mil' : num(v, d); }
+  function axisPct(v, d) { return v === 0 ? '0' : num(v, d) + '%'; }
+  function axisBrl(v, d) { return v === 0 ? '0' : 'R$' + NBSP + num(v, d); }
+  function fmtBy(f, v) {
+    if (f === 'brl') return brl(v);
+    if (f === 'brl2') return brl(v, 2);
+    if (f === 'pct0') return pct(v, 0);
+    if (f === 'pct1') return pct(v, 1);
+    if (f === 'pct2') return pct(v, 2);
+    if (f === 'x2') return num(v, 2);
+    if (f === 'int') return num(v);
+    return String(v);
+  }
+  function signed(s, v) { return (v > 0 ? '+' : '') + s; }
+
+  /* =====================================================================
+     DATAS
+     ===================================================================== */
+  function D(s) { var p = s.split('-'); return new Date(+p[0], +p[1] - 1, +p[2]); }
+  function addDays(d, n) { return new Date(d.getFullYear(), d.getMonth(), d.getDate() + n); }
+  function daysBetween(a, b) { return Math.round((b - a) / 86400000); }
+  function pad2(n) { return (n < 10 ? '0' : '') + n; }
+  function dm(d) { return pad2(d.getDate()) + '/' + pad2(d.getMonth() + 1); }
+  function ymd(d) { return d.getFullYear() + '-' + pad2(d.getMonth() + 1) + '-' + pad2(d.getDate()); }
+  var DOW = ['dom.', 'seg.', 'ter.', 'qua.', 'qui.', 'sex.', 'sáb.'];
+  var TODAY = (function () {
+    var m = /[?&]hoje=(\d{4}-\d{2}-\d{2})/.exec(window.location.search);
+    if (m) return D(m[1]);
+    var t = new Date();
+    return new Date(t.getFullYear(), t.getMonth(), t.getDate());
+  })();
+
+  /* =====================================================================
+     DOM
+     ===================================================================== */
+  var SVGNS = 'http://www.w3.org/2000/svg';
+  function S(name, attrs, parent) {
+    var e = document.createElementNS(SVGNS, name);
+    if (attrs) for (var k in attrs) if (attrs.hasOwnProperty(k) && attrs[k] != null) e.setAttribute(k, attrs[k]);
+    if (parent) parent.appendChild(e);
+    return e;
+  }
+  function T(parent, attrs, text) { var t = S('text', attrs, parent); t.textContent = text; return t; }
+  function E(tag, cls, text, parent) {
+    var e = document.createElement(tag);
+    if (cls) e.className = cls;
+    if (text != null) e.textContent = text;
+    if (parent) parent.appendChild(e);
+    return e;
+  }
+  function $(id) { return document.getElementById(id); }
+  function setText(id, s) { var e = $(id); if (e) e.textContent = s; }
+  function addClass(n, c) { var cur = n.getAttribute('class') || ''; if ((' ' + cur + ' ').indexOf(' ' + c + ' ') < 0) n.setAttribute('class', (cur ? cur + ' ' : '') + c); }
+  function removeClass(n, c) { var cur = ' ' + (n.getAttribute('class') || '') + ' '; n.setAttribute('class', cur.replace(' ' + c + ' ', ' ').replace(/^\s+|\s+$/g, '')); }
+
+  var MCTX = null;
+  try { MCTX = document.createElement('canvas').getContext('2d'); } catch (e) { MCTX = null; }
+  var FONT = 'system-ui, -apple-system, "Segoe UI", Roboto, sans-serif';
+  function textW(str, size, weight) {
+    str = String(str);
+    if (!MCTX) return str.length * size * 0.56;
+    MCTX.font = (weight || 400) + ' ' + size + 'px ' + FONT;
+    return MCTX.measureText(str).width;
+  }
+  function fit(str, maxW, size) {
+    if (textW(str, size) <= maxW) return str;
+    var s = str;
+    while (s.length > 1 && textW(s + '…', size) > maxW) s = s.slice(0, -1);
+    return s.replace(/\s+$/, '') + '…';
+  }
+
+  /* ---------- dica (tooltip) ---------- */
+  var tip = E('div', 'tip', null, document.body);
+  function showTip(data, px, py) {
+    while (tip.firstChild) tip.removeChild(tip.firstChild);
+    if (data.title) E('div', 'tip-title', data.title, tip);
+    for (var i = 0; i < data.rows.length; i++) {
+      var r = data.rows[i], row = E('div', 'tip-row', null, tip);
+      if (r.cls) E('span', 'tip-key ' + r.cls, null, row);
+      E('strong', null, r.v, row);
+      if (r.l) E('span', 'tip-lbl', r.l, row);
+    }
+    tip.style.display = 'block';
+    var tw = tip.offsetWidth, th = tip.offsetHeight;
+    var vw = document.documentElement.clientWidth, vh = window.innerHeight;
+    var x = px + 14, y = py - th - 12;
+    if (x + tw > vw - 8) x = px - tw - 14;
+    if (x < 8) x = 8;
+    if (y < 8) y = py + 20;
+    if (y + th > vh - 8) y = vh - th - 8;
+    tip.style.left = Math.round(x) + 'px';
+    tip.style.top = Math.round(y) + 'px';
+  }
+  function hideTip() { tip.style.display = 'none'; }
+  function evPoint(e, node) {
+    if (e && e.touches && e.touches[0]) return { x: e.touches[0].clientX, y: e.touches[0].clientY };
+    if (e && e.type && e.type.indexOf('mouse') === 0) return { x: e.clientX, y: e.clientY };
+    var r = node.getBoundingClientRect();
+    return { x: r.left + r.width / 2, y: r.top + 6 };
+  }
+  function bindTip(hit, group, getData) {
+    function on(e) { if (group) addClass(group, 'on'); var p = evPoint(e, hit); showTip(getData(), p.x, p.y); }
+    function off() { if (group) removeClass(group, 'on'); hideTip(); }
+    hit.addEventListener('mousemove', on);
+    hit.addEventListener('mouseleave', off);
+    hit.addEventListener('focus', on);
+    hit.addEventListener('blur', off);
+    hit.addEventListener('touchstart', on, { passive: true });
+  }
+  document.addEventListener('touchstart', function (e) {
+    var t = e.target, c = t && t.getAttribute ? (t.getAttribute('class') || '') : '';
+    if (c.indexOf('hit') < 0) hideTip();
+  }, { passive: true });
+  window.addEventListener('scroll', hideTip, { passive: true });
+
+  /* ---------- registro de gráficos (renderiza só o que está visível) ---------- */
+  var CHARTS = [];
+  function register(node, fn) { CHARTS.push({ node: node, fn: fn, w: -1 }); }
+  function renderVisible(force) {
+    for (var i = 0; i < CHARTS.length; i++) {
+      var c = CHARTS[i];
+      if (!c.node.offsetParent) continue;
+      var w = Math.floor(c.node.clientWidth);
+      if (!force && w === c.w) continue;
+      c.w = w;
+      while (c.node.firstChild) c.node.removeChild(c.node.firstChild);
+      if (w > 0) c.fn(c.node, w);
+    }
+  }
+
+  /* ---------- peças comuns ---------- */
+  function legend(parent, items) {
+    var d = E('div', 'legend', null, parent);
+    for (var i = 0; i < items.length; i++) {
+      var k = E('span', 'key', null, d);
+      E('i', 'sw sw-' + (items[i].kind || 'bar') + ' ' + items[i].cls, null, k);
+      k.appendChild(document.createTextNode(items[i].name));
+    }
+    return d;
+  }
+  function buildTable(t) {
+    var tb = E('table', t.cls || null), i, j;
+    var tr = E('tr', null, null, E('thead', null, null, tb));
+    for (i = 0; i < t.head.length; i++) {
+      var th = E('th', t.num && t.num[i] ? 'num' : null, t.head[i], tr);
+      th.setAttribute('scope', 'col');
+    }
+    var body = E('tbody', null, null, tb);
+    for (i = 0; i < t.rows.length; i++) {
+      var r = E('tr', t.rowCls ? t.rowCls[i] || null : null, null, body);
+      for (j = 0; j < t.rows[i].length; j++) {
+        var cell = t.rows[i][j];
+        var td = E(j === 0 ? 'th' : 'td', t.num && t.num[j] ? 'num' : null, null, r);
+        if (j === 0) td.setAttribute('scope', 'row');
+        if (cell && cell.nodeType) td.appendChild(cell);
+        else td.textContent = cell == null ? '—' : cell;
+      }
+    }
+    return tb;
+  }
+  function figure(host, o) {
+    var fig = E('figure', 'fig' + (o.span ? ' span2' : '') + (o.inline ? ' inline' : ''), null, host);
+    var head = E('div', 'fig-head', null, fig);
+    var ht = E('div', null, null, head);
+    E('h2', null, o.title, ht);
+    if (o.desc) E('p', 'desc', o.desc, ht);
+    var btn = null, wrap = null;
+    if (o.table) {
+      btn = E('button', 'tbl-btn', 'Ver tabela', head);
+      btn.type = 'button';
+      btn.setAttribute('aria-expanded', 'false');
+    }
+    if (o.legend) legend(fig, o.legend);
+    var chart = E('div', 'chart', null, fig);
+    if (o.note) E('p', 'fig-note', o.note, fig);
+    if (o.table) {
+      wrap = E('div', 'table-wrap', null, fig);
+      wrap.hidden = true;
+      wrap.appendChild(buildTable(o.table));
+      btn.addEventListener('click', function () {
+        var open = wrap.hidden;
+        wrap.hidden = !open;
+        btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+        btn.textContent = open ? 'Ocultar tabela' : 'Ver tabela';
+      });
+    }
+    register(chart, o.render);
+    return fig;
+  }
+
+  /* ---------- escala ---------- */
+  function stepDec(step) { var s = step.toFixed(4).replace(/0+$/, ''); var p = s.split('.'); return p[1] ? p[1].length : 0; }
+  function niceTicks(max, count) {
+    if (!(max > 0)) max = 1;
+    var raw = max / (count || 4);
+    var mag = Math.pow(10, Math.floor(Math.log(raw) / Math.LN10));
+    var n = raw / mag, step;
+    if (n <= 1) step = 1; else if (n <= 2) step = 2; else if (n <= 2.5) step = 2.5; else if (n <= 5) step = 5; else step = 10;
+    step *= mag;
+    var k = Math.ceil(max / step - 1e-9), ticks = [];
+    for (var i = 0; i <= k; i++) ticks.push(+(i * step).toFixed(6));
+    return { ticks: ticks, top: ticks[ticks.length - 1], dec: stepDec(step) };
+  }
+  function yAxis(svg, sc, m, W, y, tf) {
+    for (var i = 0; i < sc.ticks.length; i++) {
+      var yy = Math.round(y(sc.ticks[i])) + 0.5;
+      S('line', { x1: m.l, x2: W - m.r, y1: yy, y2: yy, 'class': i === 0 ? 'axis-line' : 'grid-line' }, svg);
+      T(svg, { x: m.l - 8, y: yy + 4, 'text-anchor': 'end', 'class': 'tick' }, tf(sc.ticks[i], sc.dec));
+    }
+  }
+  function tickWidth(sc, tf) {
+    var w = 0;
+    for (var i = 0; i < sc.ticks.length; i++) w = Math.max(w, textW(tf(sc.ticks[i], sc.dec), 11));
+    return Math.ceil(w);
+  }
+
+  /* =====================================================================
+     GRÁFICO DE COLUNAS (agrupadas ou empilhadas)
+     ===================================================================== */
+  function colPath(x, yt, w, h, round) {
+    var r = round ? Math.min(4, w / 2, h) : 0, yb = yt + h;
+    if (!r) return 'M' + x + ',' + yb + 'V' + yt + 'H' + (x + w) + 'V' + yb + 'Z';
+    return 'M' + x + ',' + yb + 'V' + (yt + r) + 'A' + r + ',' + r + ' 0 0 1 ' + (x + r) + ',' + yt +
+      'H' + (x + w - r) + 'A' + r + ',' + r + ' 0 0 1 ' + (x + w) + ',' + (yt + r) + 'V' + yb + 'Z';
+  }
+  function columnChart(node, W, c) {
+    var cats = c.categories, ser = c.series, n = cats.length, k = ser.length, H = c.height || 240, i, j;
+    var maxV = 0;
+    for (i = 0; i < n; i++) {
+      var tot = 0;
+      for (j = 0; j < k; j++) { var v = ser[j].values[i] || 0; tot = c.stacked ? tot + v : Math.max(tot, v); }
+      if (tot > maxV) maxV = tot;
+    }
+    var sc = niceTicks(maxV, c.tickCount || 4), top = sc.top;
+    var tf = c.axisFmt || function (v, d) { return num(v, d); };
+    var m = { t: 22, r: 4, b: 26, l: tickWidth(sc, tf) + 10 };
+    var pw = W - m.l - m.r, ph = H - m.t - m.b, base = m.t + ph;
+    function y(v) { return base - (v / top) * ph; }
+    var svg = S('svg', { width: W, height: H, viewBox: '0 0 ' + W + ' ' + H, role: 'img', 'aria-label': c.aria });
+    yAxis(svg, sc, m, W, y, tf);
+    var band = pw / n;
+    var barW = c.stacked ? Math.min(24, band * 0.5) : Math.min(24, (band * 0.64 - 2 * (k - 1)) / k);
+    var groupW = c.stacked ? barW : barW * k + 2 * (k - 1);
+    for (i = 0; i < n; i++) {
+      var cx = m.l + band * i + band / 2, g = S('g', null, svg), topY = base;
+      if (c.stacked) {
+        var cum = 0, x0 = cx - barW / 2, last = -1;
+        for (j = k - 1; j >= 0; j--) if ((ser[j].values[i] || 0) > 0) { last = j; break; }
+        for (j = 0; j < k; j++) {
+          var sv = ser[j].values[i] || 0;
+          if (sv <= 0) continue;
+          var yb = y(cum), yt = y(cum + sv);
+          if (cum > 0) yb -= 2; // 2px de respiro entre segmentos
+          cum += sv;
+          if (yb - yt > 0.5) S('path', { d: colPath(x0, yt, barW, yb - yt, j === last), 'class': 'f-' + ser[j].cls }, g);
+          topY = Math.min(topY, yt);
+        }
+      } else {
+        for (j = 0; j < k; j++) {
+          var gv = ser[j].values[i];
+          if (gv == null || gv <= 0) continue;
+          var bx = cx - groupW / 2 + j * (barW + 2);
+          S('path', { d: colPath(bx, y(gv), barW, base - y(gv), true), 'class': 'f-' + ser[j].cls }, g);
+          topY = Math.min(topY, y(gv));
+        }
+      }
+      if (c.capLabel) {
+        var lab = c.capLabel(i, band);
+        if (lab) T(svg, { x: cx, y: topY - 6, 'text-anchor': 'middle', 'class': 'vlabel' }, lab);
+      }
+      T(svg, { x: cx, y: H - 8, 'text-anchor': 'middle', 'class': 'xlabel' }, cats[i]);
+      var hit = S('rect', { x: m.l + band * i, y: m.t - 18, width: band, height: ph + 18, 'class': 'hit', tabindex: 0, 'aria-label': c.hitLabel(i) }, svg);
+      bindTip(hit, g, (function (idx) { return function () { return c.tip(idx); }; })(i));
+    }
+    node.appendChild(svg);
+  }
+
+  /* =====================================================================
+     GRÁFICO DE LINHAS (mira vertical + dica com todas as séries)
+     ===================================================================== */
+  function lineChart(node, W, c) {
+    var cats = c.categories, ser = c.series, n = cats.length, H = c.height || 220, i, j;
+    var fmt = c.fmt || function (v) { return num(v); };
+    var maxV = 0;
+    for (j = 0; j < ser.length; j++) for (i = 0; i < n; i++) { var v = ser[j].values[i]; if (v != null && v > maxV) maxV = v; }
+    if (c.ref && c.ref.value > maxV) maxV = c.ref.value;
+    var sc = niceTicks(maxV, c.tickCount || 4), top = sc.top;
+    var tf = c.axisFmt || function (v, d) { return num(v, d); };
+    var ends = [], rw = 8;
+    for (j = 0; j < ser.length; j++) {
+      var lv = ser[j].values[n - 1];
+      if (lv != null) { ends.push({ v: lv, txt: fmt(lv) }); rw = Math.max(rw, Math.ceil(textW(fmt(lv), 11.5, 600)) + 14); }
+    }
+    var m = { t: 14, r: rw, b: 26, l: tickWidth(sc, tf) + 10 };
+    var pw = W - m.l - m.r, ph = H - m.t - m.b, base = m.t + ph;
+    var padX = Math.min(22, pw / (2 * n));
+    function x(ii) { return n === 1 ? m.l + pw / 2 : m.l + padX + ii * (pw - 2 * padX) / (n - 1); }
+    function y(vv) { return base - (vv / top) * ph; }
+    var svg = S('svg', { width: W, height: H, viewBox: '0 0 ' + W + ' ' + H, role: 'img', 'aria-label': c.aria });
+    yAxis(svg, sc, m, m.l + pw + m.r, y, tf);
+    var cross = S('line', { x1: 0, x2: 0, y1: m.t, y2: base, 'class': 'cross', visibility: 'hidden' }, svg);
+    if (c.ref) {
+      var ry = Math.round(y(c.ref.value)) + 0.5;
+      S('line', { x1: m.l, x2: m.l + pw, y1: ry, y2: ry, 'class': 'ref' }, svg);
+      T(svg, { x: m.l + 4, y: ry - 5, 'class': 'ref-label' }, c.ref.label);
+    }
+    for (i = 0; i < n; i++) T(svg, { x: x(i), y: H - 8, 'text-anchor': 'middle', 'class': 'xlabel' }, cats[i]);
+    for (j = 0; j < ser.length; j++) {
+      var d = '', pen = false;
+      for (i = 0; i < n; i++) {
+        var pv = ser[j].values[i];
+        if (pv == null) { pen = false; continue; }
+        d += (pen ? 'L' : 'M') + x(i).toFixed(1) + ',' + y(pv).toFixed(1);
+        pen = true;
+      }
+      S('path', { d: d, 'class': 'line ln-' + ser[j].cls }, svg);
+    }
+    var dots = [];
+    for (i = 0; i < n; i++) dots.push([]);
+    for (j = 0; j < ser.length; j++) for (i = 0; i < n; i++) {
+      var dv = ser[j].values[i];
+      if (dv == null) continue;
+      dots[i].push(S('circle', { cx: x(i), cy: y(dv), r: 4, 'class': 'dot f-' + ser[j].cls }, svg));
+    }
+    // rótulos no fim da linha, só se não colidirem
+    var okEnds = true;
+    for (var a = 0; a < ends.length; a++) for (var b = a + 1; b < ends.length; b++) if (Math.abs(y(ends[a].v) - y(ends[b].v)) < 14) okEnds = false;
+    if (okEnds) for (a = 0; a < ends.length; a++) T(svg, { x: x(n - 1) + 9, y: y(ends[a].v) + 4, 'class': 'vlabel' }, ends[a].txt);
+
+    var hit = S('rect', { x: m.l, y: m.t, width: pw, height: ph, 'class': 'hit', tabindex: 0, 'aria-label': c.aria + '. Use as setas para percorrer os meses.' }, svg);
+    var cur = n - 1;
+    function nearest(e) {
+      var r = svg.getBoundingClientRect();
+      var px = (e.touches && e.touches[0] ? e.touches[0].clientX : e.clientX) - r.left;
+      var best = 0, bd = 1e9;
+      for (var q = 0; q < n; q++) { var dd = Math.abs(x(q) - px); if (dd < bd) { bd = dd; best = q; } }
+      return best;
+    }
+    function setIdx(ii, e) {
+      cur = ii;
+      cross.setAttribute('x1', x(ii)); cross.setAttribute('x2', x(ii)); cross.setAttribute('visibility', 'visible');
+      for (var q = 0; q < n; q++) for (var z = 0; z < dots[q].length; z++) dots[q][z].setAttribute('r', q === ii ? 5 : 4);
+      var rows = [];
+      for (var s2 = 0; s2 < ser.length; s2++) {
+        var val = ser[s2].values[ii];
+        rows.push({ v: val == null ? '—' : fmt(val), l: ser[s2].name, cls: ser[s2].cls });
+      }
+      var p;
+      if (e && (e.touches || (e.type && e.type.indexOf('mouse') === 0))) p = evPoint(e, hit);
+      else { var r = svg.getBoundingClientRect(); p = { x: r.left + x(ii), y: r.top + m.t + 8 }; }
+      showTip({ title: c.tipTitle ? c.tipTitle(ii) : cats[ii], rows: rows }, p.x, p.y);
+    }
+    function clear() {
+      cross.setAttribute('visibility', 'hidden');
+      for (var q = 0; q < n; q++) for (var z = 0; z < dots[q].length; z++) dots[q][z].setAttribute('r', 4);
+      hideTip();
+    }
+    hit.addEventListener('mousemove', function (e) { setIdx(nearest(e), e); });
+    hit.addEventListener('mouseleave', clear);
+    hit.addEventListener('touchstart', function (e) { setIdx(nearest(e), e); }, { passive: true });
+    hit.addEventListener('touchmove', function (e) { setIdx(nearest(e), e); }, { passive: true });
+    hit.addEventListener('focus', function () { setIdx(cur); });
+    hit.addEventListener('blur', clear);
+    hit.addEventListener('keydown', function (e) {
+      var key = e.key || e.keyCode;
+      if (key === 'ArrowRight' || key === 'Right' || key === 39) { setIdx(Math.min(n - 1, cur + 1)); e.preventDefault(); }
+      else if (key === 'ArrowLeft' || key === 'Left' || key === 37) { setIdx(Math.max(0, cur - 1)); e.preventDefault(); }
+      else if (key === 'Escape' || key === 'Esc' || key === 27) clear();
+    });
+    node.appendChild(svg);
+  }
+
+  /* =====================================================================
+     BARRAS HORIZONTAIS (ranking; 1 ou 2 séries)
+     ===================================================================== */
+  function hbarPath(x, y, w, h) {
+    var r = Math.min(4, h / 2, w);
+    return 'M' + x + ',' + y + 'H' + (x + w - r) + 'A' + r + ',' + r + ' 0 0 1 ' + (x + w) + ',' + (y + r) +
+      'V' + (y + h - r) + 'A' + r + ',' + r + ' 0 0 1 ' + (x + w - r) + ',' + (y + h) + 'H' + x + 'Z';
+  }
+  function hbarChart(node, W, c) {
+    var items = c.items, ser = c.series, k = ser.length, n = items.length, i, j;
+    var maxV = 0;
+    for (i = 0; i < n; i++) for (j = 0; j < k; j++) maxV = Math.max(maxV, items[i].values[j] || 0);
+    if (c.ref) maxV = Math.max(maxV, c.ref.value);
+    var labelsAbove = W < (c.breakpoint || 520);
+    var barH = k === 1 ? 14 : 10, gap = 2, groupH = barH * k + gap * (k - 1);
+    var vw = 0;
+    for (i = 0; i < n; i++) for (j = 0; j < k; j++) {
+      var txt = c.fmt(items[i].values[j], j) + (j === k - 1 && items[i].note ? ' · ' + items[i].note : '');
+      vw = Math.max(vw, textW(txt, 11.5, 600));
+    }
+    vw = Math.ceil(vw) + 10;
+    var labelW = 0;
+    if (!labelsAbove) {
+      for (i = 0; i < n; i++) labelW = Math.max(labelW, textW(items[i].label, 12.5));
+      labelW = Math.min(Math.ceil(labelW) + 14, Math.floor(W * 0.42));
+    }
+    var topPad = c.ref ? 22 : 2;
+    var rowH = labelsAbove ? 18 + groupH + 12 : Math.max(groupH + 14, 30);
+    var H = topPad + rowH * n;
+    var x0 = labelsAbove ? 0 : labelW, pw = Math.max(40, W - x0 - vw);
+    function xs(v) { return x0 + (v / maxV) * pw; }
+    var svg = S('svg', { width: W, height: H, viewBox: '0 0 ' + W + ' ' + H, role: 'img', 'aria-label': c.aria });
+    if (!labelsAbove) S('line', { x1: x0 + 0.5, x2: x0 + 0.5, y1: topPad, y2: H, 'class': 'axis-line' }, svg);
+    if (c.ref) {
+      var rx = Math.round(xs(c.ref.value)) + 0.5, endA = rx > x0 + pw * 0.6;
+      S('line', { x1: rx, x2: rx, y1: topPad - 4, y2: H, 'class': 'ref' }, svg);
+      T(svg, { x: endA ? rx - 4 : rx + 4, y: 12, 'text-anchor': endA ? 'end' : 'start', 'class': 'ref-label' }, c.ref.label);
+    }
+    for (i = 0; i < n; i++) {
+      var y0 = topPad + rowH * i;
+      var gy = labelsAbove ? y0 + 18 : y0 + (rowH - groupH) / 2;
+      if (labelsAbove) {
+        S('line', { x1: 0.5, x2: 0.5, y1: gy - 3, y2: gy + groupH + 3, 'class': 'axis-line' }, svg);
+        T(svg, { x: 0, y: y0 + 13, 'class': 'ylabel' }, fit(items[i].label, W - 4, 12.5));
+      } else T(svg, { x: x0 - 10, y: gy + groupH / 2 + 4.5, 'text-anchor': 'end', 'class': 'ylabel' }, fit(items[i].label, labelW - 14, 12.5));
+      var g = S('g', null, svg);
+      for (j = 0; j < k; j++) {
+        var v = items[i].values[j] || 0, by = gy + j * (barH + gap), bw = xs(v) - x0;
+        if (bw > 0.5) S('path', { d: hbarPath(x0, by, bw, barH), 'class': 'f-' + ser[j].cls }, g);
+        var t = T(svg, { x: x0 + Math.max(bw, 0) + 6, y: by + barH / 2 + 4, 'class': 'vlabel' }, c.fmt(v, j));
+        if (j === k - 1 && items[i].note) { var ts = S('tspan', { 'class': 'vnote' }, t); ts.textContent = ' · ' + items[i].note; }
+      }
+      var hit = S('rect', { x: 0, y: y0, width: W, height: rowH, 'class': 'hit', tabindex: 0, 'aria-label': c.hitLabel(i) }, svg);
+      bindTip(hit, g, (function (idx) { return function () { return c.tip(idx); }; })(i));
+    }
+    node.appendChild(svg);
+  }
+
+  /* =====================================================================
+     MINIGRÁFICO (indicadores)
+     ===================================================================== */
+  function sparkline(node, W, values) {
+    var H = 34, p = 5, n = values.length, mn = Infinity, mx = -Infinity, i;
+    for (i = 0; i < n; i++) { if (values[i] < mn) mn = values[i]; if (values[i] > mx) mx = values[i]; }
+    if (mx === mn) { mx += 1; mn -= 1; }
+    function x(ii) { return p + ii * (W - 2 * p) / (n - 1); }
+    function y(v) { return p + (1 - (v - mn) / (mx - mn)) * (H - 2 * p); }
+    var svg = S('svg', { width: W, height: H, 'aria-hidden': 'true', focusable: 'false' });
+    var d = '';
+    for (i = 0; i < n; i++) d += (i ? 'L' : 'M') + x(i).toFixed(1) + ',' + y(values[i]).toFixed(1);
+    S('path', { d: d, 'class': 'spark' }, svg);
+    S('circle', { cx: x(n - 1), cy: y(values[n - 1]), r: 4, 'class': 'dot f-s1' }, svg);
+    node.appendChild(svg);
+  }
+
+  /* =====================================================================
+     LINHA DO TEMPO DA BLACK
+     ===================================================================== */
+  function faseState(f) {
+    if (TODAY > D(f.end)) return 'past';
+    if (TODAY < D(f.start)) return 'next';
+    return 'now';
+  }
+  function faseRange(f) {
+    var a = D(f.start), b = D(f.end);
+    return f.start === f.end ? DOW[a.getDay()] + ' ' + dm(a) : dm(a) + ' a ' + dm(b);
+  }
+  function timeline(node, W) {
+    var T0 = D(FASES[0].start), T1 = addDays(D(FASES[FASES.length - 1].end), 1), total = daysBetween(T0, T1);
+    var dayW = W / total, H = 80, by = 24, bh = 28, i;
+    function xd(d) { return daysBetween(T0, d) * dayW; }
+    var tx = (TODAY >= T0 && TODAY < T1) ? xd(TODAY) + dayW / 2 : null;
+    var svg = S('svg', { width: W, height: H, viewBox: '0 0 ' + W + ' ' + H, role: 'img', 'aria-label': 'Linha do tempo da Black November, de 19/10 a 07/12/2026' });
+    var stLabel = { past: 'concluída', now: 'agora', next: 'próxima' };
+    for (i = 0; i < FASES.length; i++) {
+      var f = FASES[i], st = faseState(f);
+      var xa = xd(D(f.start)), xb = xd(addDays(D(f.end), 1)) - (i < FASES.length - 1 ? 2 : 0), w = Math.max(1, xb - xa);
+      var g = S('g', null, svg);
+      S('rect', { x: xa, y: by, width: w, height: bh, rx: Math.min(4, w / 2), 'class': 'seg-' + st }, g);
+      // rótulo dentro do bloco, desviando da marca de "hoje"
+      var lw = textW(f.short, 12, 600), lx = xa + 6;
+      if (tx !== null && tx > lx - 5 && tx < lx + lw + 5) lx = tx + 7;
+      if (lx + lw + 6 <= xa + w) T(svg, { x: lx, y: by + bh / 2 + 4.5, 'class': 'seg-label lbl-' + st }, f.short);
+      var hit = S('rect', { x: xa, y: by - 4, width: w + 2, height: bh + 8, 'class': 'hit', tabindex: 0, 'aria-label': f.name + ', ' + faseRange(f) + ', ' + stLabel[st] }, svg);
+      bindTip(hit, g, (function (ff, ss) {
+        return function () { return { title: ff.name, rows: [{ v: faseRange(ff), l: stLabel[ss] }] }; };
+      })(f, st));
+    }
+    // Black Friday
+    var bfx = xd(D('2026-11-27')) + dayW / 2, bfl = 'Black Friday · 27/11', bfw = textW(bfl, 11);
+    S('line', { x1: bfx, x2: bfx, y1: by + bh + 2, y2: by + bh + 8, 'class': 'bf-tick' }, svg);
+    T(svg, { x: Math.min(W - bfw / 2, Math.max(bfw / 2, bfx)), y: by + bh + 22, 'text-anchor': 'middle', 'class': 'ref-label' }, bfl);
+    // hoje + datas extremas
+    var hw = textW('Hoje', 11.5, 650);
+    if (tx !== null) {
+      S('line', { x1: tx, x2: tx, y1: by - 6, y2: by + bh + 6, 'class': 'today-line' }, svg);
+      T(svg, { x: Math.min(W - hw / 2, Math.max(hw / 2, tx)), y: 12, 'text-anchor': 'middle', 'class': 'today-label' }, 'Hoje');
+    }
+    var sw = textW('19/10', 11), ew = textW('07/12', 11);
+    if (tx === null || tx - hw / 2 > sw + 8) T(svg, { x: 0, y: 12, 'class': 'ref-label' }, dm(T0));
+    if (tx === null || tx + hw / 2 < W - ew - 8) T(svg, { x: W, y: 12, 'text-anchor': 'end', 'class': 'ref-label' }, dm(addDays(T1, -1)));
+    node.appendChild(svg);
+  }
+
+  /* =====================================================================
+     VISÃO GERAL
+     ===================================================================== */
+  function deltaOf(t) {
+    var d, txt;
+    if (t.mode === 'rel') { d = t.cur / t.prev - 1; txt = num(Math.abs(d) * 100, 1) + '%'; }
+    else if (t.mode === 'pp1') { d = t.cur - t.prev; txt = num(Math.abs(d), 1) + ' p.p.'; }
+    else if (t.mode === 'pp2') { d = t.cur - t.prev; txt = num(Math.abs(d), 2) + ' p.p.'; }
+    else if (t.mode === 'absBrl') { d = t.cur - t.prev; txt = brl(Math.abs(d), 2); }
+    else { d = t.cur - t.prev; txt = num(Math.abs(d), 2); }
+    var cls = t.good === 0 ? 'neu' : ((d > 0) === (t.good > 0) ? 'pos' : 'neg');
+    return { d: d, txt: (d > 0 ? '▲ +' : d < 0 ? '▼ ' + MINUS : '') + txt, cls: cls };
+  }
+  function buildKpis() {
+    var host = $('kpis');
+    for (var i = 0; i < TILES.length; i++) {
+      var t = TILES[i], tile = E('div', 'tile', null, host);
+      E('div', 't-label', t.label, tile);
+      E('div', 't-value', fmtBy(t.f, t.cur), tile);
+      var dl = deltaOf(t), del = E('div', 't-delta', null, tile);
+      E('span', dl.cls, dl.txt, del);
+      E('span', 'vs', ' vs. ago.', del);
+      var sp = E('div', 't-spark', null, tile);
+      register(sp, (function (vals) { return function (nd, w) { sparkline(nd, w, vals); }; })(t.spark));
+    }
+  }
+  function metaStatus(r) {
+    if (r.dir === 0) return { k: 'neutral', i: '•', l: 'Verba' };
+    var ok = r.dir > 0 ? r.real >= r.meta : r.real <= r.meta;
+    if (ok) return { k: 'good', i: '✓', l: 'Atingida' };
+    var near = r.pp ? Math.abs(r.real - r.meta) <= 1 : Math.abs(r.real / r.meta - 1) <= 0.05;
+    return near ? { k: 'warn', i: '!', l: 'Perto' } : { k: 'bad', i: '×', l: 'Não atingida' };
+  }
+  function statusChip(st) {
+    var chip = E('span', 'st st-' + st.k);
+    var ic = E('i', null, st.i, chip);
+    ic.setAttribute('aria-hidden', 'true');
+    chip.appendChild(document.createTextNode(st.l));
+    return chip;
+  }
+  function buildMetaTable() {
+    var rows = [], wrap = $('metaWrap'), list = E('ul', 'meta-list');
+    for (var i = 0; i < METAS.length; i++) {
+      var r = METAS[i], res, metaTxt = fmtBy(r.mf || r.f, r.meta), realTxt = fmtBy(r.f, r.real);
+      if (r.pp) res = signed(num(r.real - r.meta, r.pp), r.real - r.meta) + ' p.p.';
+      else res = signed(num((r.real / r.meta - 1) * 100, 1), r.real - r.meta) + '%';
+      var st = metaStatus(r);
+      rows.push([r.k, metaTxt, realTxt, res, statusChip(st)]);
+      // versão em lista para telas estreitas
+      var li = E('li', null, null, list), head = E('div', 'ml-head', null, li);
+      E('span', 'ml-name', r.k, head);
+      head.appendChild(statusChip(st));
+      var vals = E('div', 'ml-vals', null, li);
+      E('strong', null, realTxt, vals);
+      vals.appendChild(document.createTextNode(' · meta ' + metaTxt + ' · ' + res));
+    }
+    var tb = buildTable({ head: ['Indicador', 'Meta', 'Realizado', 'Resultado', 'Status'], num: [false, true, true, true, false], rows: rows });
+    wrap.appendChild(tb);
+    wrap.parentNode.insertBefore(list, wrap.nextSibling);
+  }
+  function buildSim() {
+    var PED = SET.pedCap, TK = SET.ticketExato, META = 38968.64, REAL = SET.pedPag / SET.pedCap;
+    var range = $('aprovRange'), presets = document.querySelectorAll('.preset');
+    function update(v) {
+      var a = Math.abs(v - 64.2) < 0.05 ? REAL : v / 100;
+      var ped = PED * a, rec = ped * TK, gap = rec - META;
+      setText('aprovOut', pct(a * 100, 1));
+      setText('simPed', num(Math.round(ped)));
+      setText('simRec', brl(rec));
+      setText('simGap', (gap >= 0 ? '+' : '') + brl(gap));
+      $('simBar').style.width = Math.min(100, rec / META * 100).toFixed(1) + '%';
+      for (var i = 0; i < presets.length; i++) {
+        presets[i].setAttribute('aria-pressed', Math.abs(parseFloat(presets[i].getAttribute('data-v')) - v) < 0.05 ? 'true' : 'false');
+      }
+    }
+    range.addEventListener('input', function () { update(parseFloat(range.value)); });
+    range.addEventListener('change', function () { update(parseFloat(range.value)); });
+    for (var i = 0; i < presets.length; i++) {
+      presets[i].addEventListener('click', function () {
+        var v = parseFloat(this.getAttribute('data-v'));
+        range.value = v;
+        update(v);
+      });
+    }
+    setText('simMetaLbl', 'Meta ' + brl(META));
+    update(64.2);
+  }
+  function buildGeral() {
+    var fat = SET.faturada, meta = 38968.64, share = fat / meta * 100;
+    setText('heroValue', brl(fat));
+    setText('heroSub', pct(share) + ' da meta de ' + brl(meta) + ' · faltaram ' + brl(meta - fat));
+    var hm = $('heroMeter');
+    hm.firstChild.style.width = share.toFixed(1) + '%';
+    hm.setAttribute('aria-label', 'Receita faturada em ' + pct(share) + ' da meta');
+    setText('heroMetaLbl', 'Meta ' + brl(meta));
+    buildKpis();
+    buildMetaTable();
+    buildSim();
+
+    figure($('pagtoHost'), {
+      inline: true,
+      title: 'Aprovação por forma de pagamento · junho/26',
+      desc: 'Percentual de pedidos aprovados, pelo extrato da Tray. O cartão é a forma mais usada e a que mais falha.',
+      table: {
+        head: ['Forma', 'Aprovação', 'Pago', 'Não pago'], num: [false, true, true, true],
+        rows: PAGTO_JUN.map(function (p) { return [p.label, pct(p.aprov, 0), brl(p.pago), brl(p.naoPago)]; })
+      },
+      note: 'Em junho, R$ 17.367 em pedidos de cartão não foram confirmados: mais do que a loja inteira faturou no mês.',
+      render: function (nd, w) {
+        hbarChart(nd, w, {
+          aria: 'Aprovação por forma de pagamento em junho: Pix 75%, cartão de crédito 41%, boleto 25%.',
+          series: [{ name: 'Aprovação', cls: 's1' }],
+          items: PAGTO_JUN.map(function (p) { return { label: p.label, values: [p.aprov] }; }),
+          fmt: function (v) { return pct(v, 0); },
+          hitLabel: function (i) { return PAGTO_JUN[i].label + ': ' + pct(PAGTO_JUN[i].aprov, 0) + ' de aprovação'; },
+          tip: function (i) {
+            var p = PAGTO_JUN[i];
+            return { title: p.label + ' · junho/26', rows: [{ v: pct(p.aprov, 0), l: 'aprovação (pedidos)', cls: 's1' }, { v: brl(p.pago), l: 'pago' }, { v: brl(p.naoPago), l: 'não pago' }] };
+          }
+        });
+      }
+    });
+  }
+
+  /* =====================================================================
+     EVOLUÇÃO
+     ===================================================================== */
+  function buildEvolucao() {
+    var host = $('evoCharts');
+    figure(host, {
+      span: true,
+      title: 'Receita captada: faturada × cancelada',
+      desc: 'A coluna inteira é a receita captada (GA4). A parte de baixo foi paga; a de cima foi cancelada ou não paga.',
+      legend: [{ name: 'Faturada', cls: 's1' }, { name: 'Cancelada / não paga', cls: 's2' }],
+      table: {
+        head: ['Mês', 'Captada', 'Faturada', 'Cancelada', 'Aprovação'], num: [false, true, true, true, true],
+        rows: MESES.map(function (m, i) { return [m, brl(EVO.captada[i]), brl(EVO.faturada[i]), brl(EVO.cancelada[i]), pct(EVO.aprov[i])]; })
+      },
+      render: function (nd, w) {
+        columnChart(nd, w, {
+          aria: 'Receita captada por mês, dividida entre faturada e cancelada. Setembro: captada R$ 49.325, faturada R$ 30.876, cancelada R$ 18.448.',
+          categories: MESES, stacked: true, height: 260, tickCount: 5,
+          series: [{ name: 'Faturada', cls: 's1', values: EVO.faturada }, { name: 'Cancelada', cls: 's2', values: EVO.cancelada }],
+          axisFmt: axisMil,
+          capLabel: function (i, band) { var s = mil(EVO.captada[i]); return textW(s, 11.5, 600) > band - 6 ? num(EVO.captada[i] / 1000, 1) + NBSP + 'mil' : s; },
+          hitLabel: function (i) { return MESES_LONGO[i] + ': captada ' + brl(EVO.captada[i]) + ', faturada ' + brl(EVO.faturada[i]) + ', cancelada ' + brl(EVO.cancelada[i]); },
+          tip: function (i) {
+            return { title: MESES_LONGO[i], rows: [
+              { v: brl(EVO.captada[i]), l: 'captada' },
+              { v: brl(EVO.faturada[i]), l: 'faturada', cls: 's1' },
+              { v: brl(EVO.cancelada[i]), l: 'cancelada', cls: 's2' },
+              { v: pct(EVO.aprov[i]), l: 'aprovação' }
+            ] };
+          }
+        });
+      }
+    });
+    figure(host, {
+      title: 'Aprovação de pagamento',
+      desc: 'Pedidos pagos ÷ pedidos captados.',
+      table: { head: ['Mês', 'Aprovação'], num: [false, true], rows: MESES.map(function (m, i) { return [m, pct(EVO.aprov[i])]; }) },
+      render: function (nd, w) {
+        lineChart(nd, w, {
+          aria: 'Aprovação de pagamento de maio a setembro: ' + EVO.aprov.map(function (v, i) { return MESES[i] + ' ' + pct(v); }).join(', ') + '. Meta de setembro: 82%.',
+          categories: MESES, series: [{ name: 'Aprovação', cls: 's1', values: EVO.aprov }],
+          ref: { value: 82, label: 'Meta set/26: 82%' },
+          fmt: function (v) { return pct(v); }, axisFmt: axisPct,
+          tipTitle: function (i) { return MESES_LONGO[i]; }
+        });
+      }
+    });
+    figure(host, {
+      title: 'Pedidos: captados × pagos',
+      desc: 'A distância entre as linhas são os pedidos que não viraram pagamento.',
+      legend: [{ name: 'Pagos', cls: 's1', kind: 'line' }, { name: 'Captados', cls: 'ctx', kind: 'line' }],
+      table: { head: ['Mês', 'Captados', 'Pagos'], num: [false, true, true], rows: MESES.map(function (m, i) { return [m, num(EVO.pedCap[i]), num(EVO.pedPag[i])]; }) },
+      render: function (nd, w) {
+        lineChart(nd, w, {
+          aria: 'Pedidos captados e pagos por mês. Setembro: 243 captados e 156 pagos.',
+          categories: MESES,
+          series: [{ name: 'pagos', cls: 's1', values: EVO.pedPag }, { name: 'captados', cls: 'ctx', values: EVO.pedCap }],
+          fmt: function (v) { return num(v); },
+          tipTitle: function (i) { return MESES_LONGO[i]; }
+        });
+      }
+    });
+    figure(host, {
+      title: 'Investimento em mídia',
+      desc: 'Meta Ads + Google Ads, por mês.',
+      table: { head: ['Mês', 'Investimento'], num: [false, true], rows: MESES.map(function (m, i) { return [m, brl(EVO.invest[i])]; }) },
+      render: function (nd, w) {
+        columnChart(nd, w, {
+          aria: 'Investimento em mídia por mês: ' + EVO.invest.map(function (v, i) { return MESES[i] + ' ' + brl(v); }).join(', '),
+          categories: MESES, series: [{ name: 'Investimento', cls: 's1', values: EVO.invest }], height: 220,
+          axisFmt: axisMil,
+          capLabel: function (i, band) { var s = mil(EVO.invest[i]); return textW(s, 11.5, 600) > band - 6 ? num(EVO.invest[i] / 1000, 1) + NBSP + 'mil' : s; },
+          hitLabel: function (i) { return MESES_LONGO[i] + ': ' + brl(EVO.invest[i]); },
+          tip: function (i) { return { title: MESES_LONGO[i], rows: [{ v: brl(EVO.invest[i]), l: 'investimento', cls: 's1' }, { v: num(EVO.roasFat[i], 2), l: 'ROAS faturado' }] }; }
+        });
+      }
+    });
+    figure(host, {
+      title: 'ROAS: captado × faturado',
+      desc: 'Receita ÷ investimento. O faturado considera só o que foi pago.',
+      legend: [{ name: 'Faturado', cls: 's1', kind: 'line' }, { name: 'Captado', cls: 'ctx', kind: 'line' }],
+      table: { head: ['Mês', 'ROAS captado', 'ROAS faturado'], num: [false, true, true], rows: MESES.map(function (m, i) { return [m, num(EVO.roasCap[i], 2), num(EVO.roasFat[i], 2)]; }) },
+      render: function (nd, w) {
+        lineChart(nd, w, {
+          aria: 'ROAS captado e faturado por mês. Setembro: captado 3,15 e faturado 1,97.',
+          categories: MESES,
+          series: [{ name: 'faturado', cls: 's1', values: EVO.roasFat }, { name: 'captado', cls: 'ctx', values: EVO.roasCap }],
+          fmt: function (v) { return num(v, 2); },
+          tipTitle: function (i) { return MESES_LONGO[i]; }
+        });
+      }
+    });
+
+    var small = $('evoSmall');
+    var SMALL = [
+      { title: 'Sessões', desc: 'Visitas ao site (geral).', values: EVO.sessoes, fmt: function (v) { return num(v); }, axis: axisMil },
+      { title: 'Taxa de conversão', desc: 'Pedidos captados ÷ sessões.', values: EVO.conv, fmt: function (v) { return pct(v, 2); }, axis: axisPct },
+      { title: 'Ticket médio', desc: 'Receita faturada ÷ pedidos pagos.', values: EVO.ticket, fmt: function (v) { return brl(v); }, axis: axisBrl },
+      { title: 'CPS geral', desc: 'Custo por sessão: investimento ÷ sessões.', values: EVO.cps, fmt: function (v) { return brl(v, 2); }, axis: axisBrl }
+    ];
+    for (var i = 0; i < SMALL.length; i++) {
+      (function (sm) {
+        figure(small, {
+          title: sm.title, desc: sm.desc,
+          table: { head: ['Mês', sm.title], num: [false, true], rows: MESES.map(function (m, j) { return [m, sm.fmt(sm.values[j])]; }) },
+          render: function (nd, w) {
+            lineChart(nd, w, {
+              aria: sm.title + ' de maio a setembro: ' + sm.values.map(function (v, j) { return MESES[j] + ' ' + sm.fmt(v); }).join(', '),
+              categories: MESES, series: [{ name: sm.title.toLowerCase(), cls: 's1', values: sm.values }],
+              fmt: sm.fmt, axisFmt: sm.axis, height: 180,
+              tipTitle: function (j) { return MESES_LONGO[j]; }
+            });
+          }
+        });
+      })(SMALL[i]);
+    }
+
+    var rows = [
+      ['Investimento (Ads)', EVO.invest, function (v) { return brl(v); }],
+      ['Receita captada (GA4)', EVO.captada, function (v) { return brl(v); }],
+      ['Receita faturada', EVO.faturada, function (v) { return brl(v); }],
+      ['Receita cancelada', EVO.cancelada, function (v) { return brl(v); }],
+      ['ROAS captado', EVO.roasCap, function (v) { return num(v, 2); }],
+      ['ROAS faturado', EVO.roasFat, function (v) { return num(v, 2); }],
+      ['Aprovação de pagamento', EVO.aprov, function (v) { return pct(v); }],
+      ['Taxa de conversão', EVO.conv, function (v) { return pct(v, 2); }],
+      ['Pedidos captados', EVO.pedCap, function (v) { return num(v); }],
+      ['Pedidos pagos', EVO.pedPag, function (v) { return num(v); }],
+      ['Ticket médio', EVO.ticket, function (v) { return brl(v); }],
+      ['Sessões (geral)', EVO.sessoes, function (v) { return num(v); }],
+      ['CPS (geral)', EVO.cps, function (v) { return brl(v, 2); }],
+      ['CPS de mídia paga', EVO.cpsMidia, function (v) { return brl(v, 2); }]
+    ];
+    $('evoTable').appendChild(buildTable({
+      head: ['Métrica'].concat(MESES), num: [false, true, true, true, true, true],
+      rows: rows.map(function (r) { return [r[0]].concat(r[1].map(function (v) { return v == null ? null : r[2](v); })); })
+    }));
+  }
+
+  /* =====================================================================
+     CANAIS
+     ===================================================================== */
+  function share(v) { return v > 0 && v < 0.05 ? '<0,1%' : pct(v); }
+  function buildCanais() {
+    var host = $('canaisCharts');
+    figure(host, {
+      title: 'Participação nas sessões e na receita',
+      desc: 'Quanto cada origem traz de visitas e de receita, em % do total do site.',
+      legend: [{ name: '% da receita', cls: 's1' }, { name: '% das sessões', cls: 'ctx' }],
+      table: {
+        head: ['Origem', '% sessões', '% receita'], num: [false, true, true],
+        rows: CANAIS.map(function (c) { return [c.label, share(c.s / SITE.s * 100), share(c.r / SITE.r * 100)]; })
+      },
+      render: function (nd, w) {
+        hbarChart(nd, w, {
+          aria: 'Participação de cada origem nas sessões e na receita de setembro. Facebook Ads: 61% das sessões e 60% da receita. Google: 11% das sessões e 23% da receita.',
+          series: [{ name: 'receita', cls: 's1' }, { name: 'sessões', cls: 'ctx' }],
+          items: CANAIS.map(function (c) { return { label: c.label, values: [c.r / SITE.r * 100, c.s / SITE.s * 100] }; }),
+          fmt: function (v) { return share(v); },
+          hitLabel: function (i) { var c = CANAIS[i]; return c.label + ': ' + share(c.r / SITE.r * 100) + ' da receita e ' + share(c.s / SITE.s * 100) + ' das sessões'; },
+          tip: function (i) {
+            var c = CANAIS[i];
+            return { title: c.label + ' (' + c.origem + ')', rows: [
+              { v: share(c.r / SITE.r * 100), l: 'da receita · ' + brl(c.r), cls: 's1' },
+              { v: share(c.s / SITE.s * 100), l: 'das sessões · ' + num(c.s), cls: 'ctx' }
+            ] };
+          }
+        });
+      }
+    });
+    var convList = CANAIS.filter(function (c) { return c.s >= 100; }).sort(function (a, b) { return b.c - a.c; });
+    figure(host, {
+      title: 'Conversão por origem',
+      desc: 'Sessões com compra (GA4), origens com 100 sessões ou mais.',
+      note: 'Fora do gráfico pela amostra pequena: Instagram (ig), 6,85% em 73 sessões, e e-mail, 14,29% em 7 sessões. Os dois estão na tabela.',
+      table: {
+        head: ['Origem', 'Sessões', 'Pedidos', 'Conversão'], num: [false, true, true, true],
+        rows: convList.map(function (c) { return [c.label, num(c.s), num(c.p), pct(c.c, 2)]; })
+      },
+      render: function (nd, w) {
+        var list = convList;
+        hbarChart(nd, w, {
+          aria: 'Conversão por origem em setembro: Linktree 2,93%, Instagram (link) 2,31%, Google 1,88%, Direto 1,51%, Facebook Ads 1,03%. Média do site: 1,02%.',
+          series: [{ name: 'conversão', cls: 's1' }],
+          items: list.map(function (c) { return { label: c.label, values: [c.c] }; }),
+          ref: { value: SITE.c, label: 'Média do site: ' + pct(SITE.c, 2) },
+          fmt: function (v) { return pct(v, 2); },
+          hitLabel: function (i) { var c = list[i]; return c.label + ': conversão de ' + pct(c.c, 2) + ' em ' + num(c.s) + ' sessões'; },
+          tip: function (i) {
+            var c = list[i];
+            return { title: c.label + ' (' + c.origem + ')', rows: [{ v: pct(c.c, 2), l: 'conversão', cls: 's1' }, { v: num(c.s), l: 'sessões' }, { v: num(c.p), l: 'pedidos' }, { v: brl(c.t, 2), l: 'ticket' }] };
+          }
+        });
+      }
+    });
+    var rows = CANAIS.map(function (c) { return [c.label, c.origem, num(c.s), share(c.s / SITE.s * 100), num(c.p), pct(c.c, 2), brl(c.r, 2), brl(c.t, 2)]; });
+    rows.push(['Total do site', null, num(SITE.s), '100%', num(SITE.p), pct(SITE.c, 2), brl(SITE.r, 2), brl(SITE.t, 2)]);
+    var cls = CANAIS.map(function () { return null; }); cls.push('total');
+    $('canaisTable').appendChild(buildTable({
+      head: ['Canal', 'Origem (GA4)', 'Sessões', '% sess.', 'Pedidos', 'Conv. (GA4)', 'Receita', 'Ticket'],
+      num: [false, false, true, true, true, true, true, true], rows: rows, rowCls: cls
+    }));
+  }
+
+  /* =====================================================================
+     REGIÕES
+     ===================================================================== */
+  function buildRegioes() {
+    var host = $('regioesCharts');
+    figure(host, {
+      title: 'Receita por estado',
+      desc: 'Setembro/26, receita captada (GA4).',
+      table: {
+        head: ['Estado', 'Receita', '% da receita do site'], num: [false, true, true],
+        rows: REGIOES.map(function (r) { return [r.label, brl(r.r, 2), pct(r.r / SITE.r * 100)]; })
+      },
+      render: function (nd, w) {
+        hbarChart(nd, w, {
+          aria: 'Receita por estado em setembro. São Paulo lidera com R$ 22.166.',
+          series: [{ name: 'receita', cls: 's1' }],
+          items: REGIOES.map(function (r) { return { label: r.label, values: [r.r] }; }),
+          fmt: function (v) { return brl(v); },
+          hitLabel: function (i) { return REGIOES[i].label + ': ' + brl(REGIOES[i].r); },
+          tip: function (i) {
+            var r = REGIOES[i];
+            return { title: r.label, rows: [{ v: brl(r.r, 2), l: 'receita', cls: 's1' }, { v: pct(r.r / SITE.r * 100), l: 'da receita do site' }, { v: num(r.p), l: 'pedidos' }, { v: brl(r.t, 2), l: 'ticket' }] };
+          }
+        });
+      }
+    });
+    figure(host, {
+      title: 'Conversão por estado',
+      desc: 'Sessões com compra (GA4). Indicamos os estados com 5 pedidos ou menos.',
+      table: {
+        head: ['Estado', 'Sessões', 'Pedidos', 'Conversão'], num: [false, true, true, true],
+        rows: REGIOES.slice().sort(function (a, b) { return b.c - a.c; }).map(function (r) { return [r.label, num(r.s), num(r.p), pct(r.c, 2)]; })
+      },
+      render: function (nd, w) {
+        var list = REGIOES.slice().sort(function (a, b) { return b.c - a.c; });
+        hbarChart(nd, w, {
+          aria: 'Conversão por estado em setembro. Rio Grande do Sul 1,76% e Santa Catarina 1,45%, contra 0,99% de São Paulo. Média do site: 1,02%.',
+          series: [{ name: 'conversão', cls: 's1' }],
+          items: list.map(function (r) { return { label: r.label, values: [r.c], note: r.p <= 5 ? r.p + ' pedidos' : null }; }),
+          ref: { value: SITE.c, label: 'Média do site: ' + pct(SITE.c, 2) },
+          fmt: function (v) { return pct(v, 2); },
+          hitLabel: function (i) { var r = list[i]; return r.label + ': conversão de ' + pct(r.c, 2) + ', ' + r.p + ' pedidos'; },
+          tip: function (i) {
+            var r = list[i];
+            return { title: r.label, rows: [{ v: pct(r.c, 2), l: 'conversão', cls: 's1' }, { v: num(r.s), l: 'sessões' }, { v: num(r.p), l: 'pedidos' }, { v: brl(r.t, 2), l: 'ticket' }] };
+          }
+        });
+      }
+    });
+    $('regioesTable').appendChild(buildTable({
+      head: ['Estado', 'Sessões', 'Pedidos', 'Conv. (GA4)', 'Receita', 'Ticket'],
+      num: [false, true, true, true, true, true],
+      rows: REGIOES.map(function (r) { return [r.label, num(r.s) + ' (' + pct(r.s / SITE.s * 100) + ')', num(r.p), pct(r.c, 2), brl(r.r, 2), brl(r.t, 2)]; })
+    }));
+  }
+
+  /* =====================================================================
+     PRODUTOS
+     ===================================================================== */
+  function buildProdutos() {
+    var tiles = [
+      ['Itens vistos', num(LOJA.vistos), null],
+      ['Adicionados ao carrinho', num(LOJA.carrinho), pct(LOJA.carrinho / LOJA.vistos * 100) + ' dos itens vistos'],
+      ['Itens comprados', num(LOJA.comprados), null],
+      ['Receita de itens', brl(LOJA.receita), 'Top 10: ' + pct(sumR() / LOJA.receita * 100, 0) + ' da receita'],
+      ['Itens por pedido', num(LOJA.comprados / SET.pedCap, 2), '378 itens em 243 pedidos'],
+      ['Valor médio por item', brl(LOJA.receita / LOJA.comprados), 'A alavanca de ticket é a 2ª peça'],
+      ['Produto-âncora', 'Reta Mom com Brilho', pct(102 / LOJA.comprados * 100, 0) + ' das unidades e ' + pct(13770 / LOJA.receita * 100) + ' da receita de itens'],
+      ['Muito visto, pouco comprado', 'Mom Preto Grafite', '4.308 vistas e 12 compras; carrinho ÷ vistos de ' + pct(65 / 4308 * 100)]
+    ];
+    function sumR() { var s = 0; for (var i = 0; i < PRODUTOS.length; i++) s += PRODUTOS[i].r; return s; }
+    var host = $('prodTiles');
+    for (var i = 0; i < tiles.length; i++) {
+      var t = E('div', 'tile', null, host);
+      E('div', 't-label', tiles[i][0], t);
+      E('div', 't-value' + (tiles[i][1].length > 9 ? ' small' : ''), tiles[i][1], t);
+      if (tiles[i][2]) E('div', 't-sub', tiles[i][2], t);
+    }
+    var ch = $('produtosCharts');
+    figure(ch, {
+      span: true,
+      title: 'Receita por produto',
+      desc: 'Setembro/26, receita de itens (GA4). Os 10 somam 65% da receita de itens da loja.',
+      table: {
+        head: ['Produto', 'Receita', '% da receita de itens'], num: [false, true, true],
+        rows: PRODUTOS.map(function (p) { return [p.nome, brl(p.r), pct(p.r / LOJA.receita * 100)]; })
+      },
+      render: function (nd, w) {
+        hbarChart(nd, w, {
+          aria: 'Receita por produto em setembro. A Reta Mom com Brilho lidera com R$ 13.770, 30,5% da receita de itens.',
+          series: [{ name: 'receita', cls: 's1' }],
+          items: PRODUTOS.map(function (p) { return { label: p.label, values: [p.r] }; }),
+          fmt: function (v) { return brl(v); },
+          hitLabel: function (i) { return PRODUTOS[i].nome + ': ' + brl(PRODUTOS[i].r); },
+          tip: function (i) {
+            var p = PRODUTOS[i];
+            return { title: p.nome, rows: [{ v: brl(p.r), l: 'receita', cls: 's1' }, { v: num(p.v), l: 'vistos' }, { v: num(p.ca), l: 'no carrinho' }, { v: num(p.co), l: 'comprados' }] };
+          }
+        });
+      }
+    });
+    var rows = PRODUTOS.map(function (p) {
+      var cell = document.createElement('span');
+      E('span', 'pname', p.nome, cell);
+      if (p.tag) E('span', 'tag', p.tag, cell);
+      return [cell, num(p.v), num(p.ca), num(p.co), brl(p.r), pct(p.ca / p.v * 100), pct(p.c, 2)];
+    });
+    rows.push(['Total da loja (todos os produtos)', num(LOJA.vistos), num(LOJA.carrinho), num(LOJA.comprados), brl(LOJA.receita), pct(LOJA.carrinho / LOJA.vistos * 100), null]);
+    var cls = PRODUTOS.map(function () { return null; }); cls.push('total');
+    $('produtosTable').appendChild(buildTable({
+      head: ['Produto', 'Vistos', 'Carrinho', 'Comprados', 'Receita', 'Carrinho ÷ vistos', 'Conv. (GA4)'],
+      num: [false, true, true, true, true, true, true], rows: rows, rowCls: cls
+    }));
+  }
+
+  /* =====================================================================
+     BLACK NOVEMBER
+     ===================================================================== */
+  function hourOf(h) { var m = /(\d+)h/.exec(h); return m ? +m[1] : 0; }
+  function agenda() {
+    var list = [], i, seq = 0;
+    for (i = 0; i < AGENDA_FIXA.length; i++) list.push({ d: AGENDA_FIXA[i].d, h: AGENDA_FIXA[i].h, ch: AGENDA_FIXA[i].ch, msg: AGENDA_FIXA[i].msg });
+    for (i = 0; i < SEMANAS.length; i++) {
+      var w = SEMANAS[i];
+      if (!w.n) continue;
+      var mon = D(w.start);
+      list.push({ d: ymd(mon), h: '8h–10h', ch: 'E-mail', msg: w.n === 1 ? 'E-mail 5: a Black November abriu. Semana 1: ' + w.theme + '.' : 'Tema da semana ' + w.n + ' (' + w.theme + ') e oferta.' });
+      list.push({ d: ymd(addDays(mon, 1)), h: '19h', ch: 'Grupo VIP', msg: 'Drop do tema (' + w.theme + ') com cupom ou benefício VIP.' });
+      list.push({ d: ymd(addDays(mon, 3)), h: '19h', ch: 'Grupo VIP', msg: 'Atualização do que esgotou ou está acabando (se verdadeiro) e enquete do próximo tema.' });
+      list.push({ d: ymd(addDays(mon, 5)), h: '10h', ch: 'E-mail', msg: 'Fim de semana (só para quem abriu algum e-mail nos últimos 30 dias).' });
+      list.push({ d: ymd(addDays(mon, 6)), h: '18h', ch: 'Grupo VIP', msg: 'Última hora da semana.' });
+    }
+    for (i = 0; i < list.length; i++) list[i].seq = seq++;
+    list.sort(function (a, b) {
+      if (a.d !== b.d) return a.d < b.d ? -1 : 1;
+      var ha = hourOf(a.h), hb = hourOf(b.h);
+      return ha !== hb ? ha - hb : a.seq - b.seq;
+    });
+    return list;
+  }
+  function inRange(d, s, e) { return d >= D(s) && d <= D(e); }
+  function daysTxt(n) { return n === 1 ? 'amanhã' : 'em ' + n + ' dias'; }
+  function buildBlack() {
+    var i, cur = null, week = null;
+    for (i = 0; i < FASES.length; i++) if (faseState(FASES[i]) === 'now') cur = FASES[i];
+    for (i = 0; i < SEMANAS.length; i++) if (inRange(TODAY, SEMANAS[i].start, SEMANAS[i].end)) week = SEMANAS[i];
+    var dBF = daysBetween(TODAY, D('2026-11-27')), dEnd = daysBetween(TODAY, D('2026-11-30'));
+    var first = D(FASES[0].start);
+    var tiles = [
+      ['Fase atual', cur ? cur.name : (TODAY < first ? 'Antes da preparação' : 'Black encerrada'),
+        week && week.n ? 'Semana ' + week.n + ' · tema: ' + week.theme : cur ? faseRange(cur) : ''],
+      ['Black Friday', dBF > 0 ? daysTxt(dBF) : dBF === 0 ? 'é hoje' : 'já passou', 'sex. 27/11 · o VIP abre qui. 26/11, às 19h'],
+      ['Fim da Black November', dEnd > 0 ? daysTxt(dEnd) : dEnd === 0 ? 'hoje, até 23h59' : 'encerrada', 'seg. 30/11 (Cyber Monday), até 23h59']
+    ];
+    var host = $('blackTiles');
+    for (i = 0; i < tiles.length; i++) {
+      var t = E('div', 'tile', null, host);
+      E('div', 't-label', tiles[i][0], t);
+      E('div', 't-value small', tiles[i][1], t);
+      if (tiles[i][2]) E('div', 't-sub', tiles[i][2], t);
+    }
+
+    register($('timeline'), timeline);
+    var pl = $('phaseList'), stTxt = { past: 'Concluída', now: 'Agora', next: 'Próxima' };
+    for (i = 0; i < FASES.length; i++) {
+      var f = FASES[i], st = faseState(f), li = E('li', 'phase ' + st, null, pl);
+      E('span', 'p-sw ' + st, null, li).setAttribute('aria-hidden', 'true');
+      var body = E('div', null, null, li);
+      E('div', 'p-name', f.name, body);
+      E('div', 'p-goal', f.goal, body);
+      var when = E('div', 'p-when', null, li);
+      E('span', 'p-state', stTxt[st], when);
+      when.appendChild(document.createTextNode(faseRange(f)));
+    }
+
+    var all = agenda(), end = addDays(TODAY, 7), wk = $('agendaWeek'), count = 0;
+    setText('weekDesc', dm(TODAY) + ' a ' + dm(addDays(TODAY, 6)) + ', pela agenda de envios do plano.');
+    for (i = 0; i < all.length; i++) {
+      var a = all[i], ad = D(a.d);
+      if (ad < TODAY || ad >= end) continue;
+      count++;
+      var item = E('li', null, null, wk), whenE = E('div', 'a-when', null, item);
+      var strong = E('strong', null, DOW[ad.getDay()] + ' ' + dm(ad), whenE);
+      if (a.d === ymd(TODAY)) E('span', 'badge-today', 'hoje', strong);
+      whenE.appendChild(document.createTextNode(a.h));
+      var mb = E('div', null, null, item);
+      E('span', 'a-ch', a.ch, mb);
+      E('div', 'a-msg', a.msg, mb);
+    }
+    if (!count) E('li', 'empty', 'Nenhum envio programado para os próximos 7 dias.', wk);
+
+    var wl = $('weekList');
+    for (i = 0; i < SEMANAS.length; i++) {
+      var s = SEMANAS[i], now = inRange(TODAY, s.start, s.end), item2 = E('li', now ? 'now' : null, null, wl);
+      E('div', 'w-title', (s.n ? 'Semana ' + s.n + ' · ' : '') + dm(D(s.start)) + ' a ' + dm(D(s.end)) + ' · ' + s.theme + (now ? ' (agora)' : ''), item2);
+      E('div', 'w-detail', s.detail, item2);
+    }
+
+    var rows = [], cls = [];
+    for (i = 0; i < all.length; i++) {
+      var x = all[i], xd = D(x.d);
+      rows.push([DOW[xd.getDay()] + ' ' + dm(xd), x.h, x.ch, x.msg]);
+      cls.push(x.d === ymd(TODAY) ? 'is-today' : xd < TODAY ? 'past' : null);
+    }
+    $('agendaTable').appendChild(buildTable({ cls: 'stack-sm', head: ['Data', 'Hora', 'Canal', 'Mensagem'], rows: rows, rowCls: cls }));
+  }
+
+  /* =====================================================================
+     ABAS
+     ===================================================================== */
+  var TABS = ['geral', 'evolucao', 'canais', 'regioes', 'produtos', 'black'];
+  function selectTab(id, focus) {
+    for (var i = 0; i < TABS.length; i++) {
+      var on = TABS[i] === id, btn = $('t-' + TABS[i]);
+      btn.setAttribute('aria-selected', on ? 'true' : 'false');
+      btn.setAttribute('tabindex', on ? '0' : '-1');
+      $('p-' + TABS[i]).hidden = !on;
+      if (on && focus) btn.focus();
+    }
+    hideTip();
+    renderVisible(false);
+    if (window.history && history.replaceState) history.replaceState(null, '', '#' + id);
+  }
+  for (var ti = 0; ti < TABS.length; ti++) {
+    (function (id, idx) {
+      var btn = $('t-' + id);
+      btn.addEventListener('click', function () { selectTab(id, false); });
+      btn.addEventListener('keydown', function (e) {
+        var key = e.key || e.keyCode, next = null;
+        if (key === 'ArrowRight' || key === 'Right' || key === 39) next = TABS[(idx + 1) % TABS.length];
+        else if (key === 'ArrowLeft' || key === 'Left' || key === 37) next = TABS[(idx + TABS.length - 1) % TABS.length];
+        else if (key === 'Home' || key === 36) next = TABS[0];
+        else if (key === 'End' || key === 35) next = TABS[TABS.length - 1];
+        if (next) { e.preventDefault(); selectTab(next, true); }
+      });
+    })(TABS[ti], ti);
+  }
+
+  /* =====================================================================
+     INÍCIO
+     ===================================================================== */
+  buildGeral();
+  buildEvolucao();
+  buildCanais();
+  buildRegioes();
+  buildProdutos();
+  buildBlack();
+
+  var start = window.location.hash.replace('#', '');
+  selectTab(TABS.indexOf(start) >= 0 ? start : 'geral', false);
+  window.addEventListener('hashchange', function () {
+    var h = window.location.hash.replace('#', '');
+    if (TABS.indexOf(h) >= 0) selectTab(h, false);
+  });
+  var rt = null;
+  window.addEventListener('resize', function () {
+    if (rt) clearTimeout(rt);
+    rt = setTimeout(function () { renderVisible(false); }, 120);
+  });
+})();
+</script>
+</body>
+</html>
